@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Result – AI Career Counselor</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      --secondary-gradient: linear-gradient(135deg, #a855f7, #4895ef, #06b6d4, #f59e0b);
+      --glass-bg: rgba(5, 10, 25, 0.85);
+      --glass-border: rgba(80, 90, 120, 0.6);
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
+      background: #0a0e27;
+      color: #fff;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(72, 149, 239, 0.3), transparent 50%);
+      animation: gradientShift 15s ease infinite;
+      z-index: 0;
+    }
+
+    /* Course Card Hover Effects */
+    .course-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+      border-color: rgba(168, 85, 247, 0.8);
+    }
+    
+    .course-card a:hover {
+      background: linear-gradient(135deg, #764ba2, #f093fb) !important;
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+    }
+
+    /* Celebration Effects Container */
+    .celebration-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3);
+      animation: confettiFall 3s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: fireworkExplode 2s ease-out infinite;
+    }
+
+    @keyframes fireworkExplode {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(var(--x), var(--y)) scale(3);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(calc(var(--x) * 2), calc(var(--y) * 2)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      animation: sparkle 1.5s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Floating Bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(72, 149, 239, 0.6), rgba(120, 119, 198, 0.6));
+      animation: bubbleFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes bubbleFloat {
+      0%, 100% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        transform: translateY(90vh) scale(1);
+        opacity: 0.7;
+      }
+      90% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0.7;
+      }
+    }
+
+    /* Light Beams */
+    .light-beam {
+      position: absolute;
+      width: 2px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: beamSweep 8s ease-in-out infinite;
+    }
+
+    @keyframes beamSweep {
+      0%, 100% {
+        transform: translateX(-100vw) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        transform: translateX(100vw) rotate(45deg);
+        opacity: 0.6;
+      }
+    }
+
+    /* Celebration Particles */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #fff, transparent);
+      animation: particleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes particleFloat {
+      0%, 100% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      25% {
+        transform: translateY(75vh) translateX(20px) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(50vh) translateX(-20px) scale(1.2);
+        opacity: 1;
+      }
+      75% {
+        transform: translateY(25vh) translateX(20px) scale(0.8);
+        opacity: 0.6;
+      }
+    }
+
+    /* Pulsing Rings */
+    .pulse-ring {
+      position: absolute;
+      border: 2px solid rgba(72, 149, 239, 0.6);
+      border-radius: 50%;
+      animation: pulseRing 3s ease-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 70px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 15;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 45px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: #e0e7ff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #4895ef);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::before {
+      width: 80%;
+    }
+    
+    nav a:hover {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    .result-container {
+      max-width: 800px;
+      margin: 120px auto 50px auto;
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(120, 119, 198, 0.3);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+    }
+    
+    .result-container p {
+      font-size: 1.3rem;
+      color: #cbd5e1;
+      margin: 20px 0;
+    }
+    .suggestion-box {
+      background: rgba(10, 14, 39, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(120, 119, 198, 0.3);
+      border-radius: 20px;
+      padding: 30px 35px;
+      margin: 35px 0 30px 0;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      color: #cbd5e1;
+      transition: all 0.3s ease;
+    }
+    
+    .suggestion-box:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 10px 35px rgba(168, 85, 247, 0.3);
+    }
+    
+    .suggestion-box h3 {
+      color: #a855f7;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    
+    .suggestion-box ul {
+      text-align: left;
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+    .cta-button {
+      background: linear-gradient(135deg, #4895ef, #a855f7);
+      color: #fff;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      padding: 16px 50px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+      transition: all 0.4s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .cta-button:hover {
+      border-color: #a855f7;
+      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.6);
+      transform: translateY(-3px);
+    }
+    .back-link {
+      color: #4895ef;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 25px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+      transform: translateX(-5px);
+    }
+
+    /* Enhanced Result Page Sections */
+    .career-analysis {
+      margin: 40px 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .career-analysis::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #44e4a4, #22c55e, #10b981);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .career-analysis h3 {
+      color: #44e4a4;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .career-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid #44e4a4;
+      transition: all 0.3s ease;
+    }
+
+    .highlight-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(68, 228, 164, 0.2);
+    }
+
+    .highlight-card h4 {
+      color: #44e4a4;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .highlight-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .salary-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(68, 228, 164, 0.1), rgba(68, 228, 164, 0.05));
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 20px 0;
+    }
+
+    .salary-range {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #44e4a4;
+    }
+
+    .growth-rate {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .expanded-courses {
+      margin: 40px 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .expanded-courses::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .expanded-courses h3 {
+      color: #60a5fa;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .course-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .course-category {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .course-category:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      border-color: rgba(102, 126, 234, 0.5);
+    }
+
+    .course-category h4 {
+      color: #60a5fa;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-list-expanded {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-list-expanded li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-list-expanded li:hover {
+      color: #fff;
+      padding-left: 5px;
+    }
+
+    .course-list-expanded li:last-child {
+      border-bottom: none;
+    }
+
+    .difficulty-badge {
+      background: rgba(102, 126, 234, 0.2);
+      color: #667eea;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    .why-good-section {
+      margin: 40px 0;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.05));
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+    }
+
+    .why-good-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(135deg, #a855f7, #764ba2, #f093fb);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .why-good-section h3 {
+      color: #a855f7;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .reason-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .reason-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .reason-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #a855f7, #764ba2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .reason-content h4 {
+      color: #a855f7;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .reason-content p {
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Celebration Effects Container -->
+  <div class="celebration-container" id="celebrationContainer"></div>
+  
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/form">Form</a>
+      <a href="/roadmap">Career Roadmap</a>
+    </nav>
+    <span id="userName" style="margin-left:20px; font-weight:700;"></span>
+  </header>
+
+  <main class="result-container">
+    <h2>🎯 Hi {{ name }}, here's your result</h2>
+    <p><strong>🔮 Recommended Career Path:</strong> <span style="color: #44e4a4">{{ career }}</span></p>
+
+    <!-- Career Analysis Section -->
+    <div class="career-analysis">
+      <h3>📊 Career Analysis & Insights</h3>
+      <div class="career-highlights">
+        <div class="highlight-card">
+          <h4>💰 Salary Range</h4>
+          <p>Based on your profile and current market trends</p>
+          <div class="salary-info">
+            <span class="salary-range">$60,000 - $120,000</span>
+            <span class="growth-rate">+15% Growth</span>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <h4>🎯 Job Satisfaction</h4>
+          <p>This career path typically shows high satisfaction rates among professionals</p>
+          <div class="salary-info">
+            <span class="salary-range">85% Satisfaction</span>
+            <span class="growth-rate">High Demand</span>
+          </div>
+        </div>
+        <div class="highlight-card">
+          <h4>🚀 Future Growth</h4>
+          <p>Industry projections show strong growth potential over the next decade</p>
+          <div class="salary-info">
+            <span class="salary-range">22% Job Growth</span>
+            <span class="growth-rate">2030-2040</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestion-box">
+      <h3>💡 Suggested Skills to Learn for {{ career }}:</h3>
+      <ul>
+        {% if suggested_skills %}
+          {% for skill in suggested_skills %}
+            <li>{{ skill }}</li>
+          {% endfor %}
+        {% else %}
+          <li>Advanced Problem Solving</li>
+          <li>Leadership & Communication</li>
+          <li>Industry-Specific Technical Skills</li>
+          <li>Project Management</li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <!-- Why This Career is Good for You -->
+    <div class="why-good-section">
+      <h3>🌟 Why This Career Path is Perfect for You</h3>
+      <div class="reasons-grid">
+        <div class="reason-item">
+          <div class="reason-icon">🎯</div>
+          <div class="reason-content">
+            <h4>Perfect Match</h4>
+            <p>Your interests and skills align perfectly with this career path's requirements and daily responsibilities.</p>
+          </div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-icon">📈</div>
+          <div class="reason-content">
+            <h4>Growth Potential</h4>
+            <p>This field offers excellent advancement opportunities and continuous learning possibilities.</p>
+          </div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-icon">💡</div>
+          <div class="reason-content">
+            <h4>Innovation Impact</h4>
+            <p>You'll be at the forefront of industry innovation and technological advancement.</p>
+          </div>
+        </div>
+        <div class="reason-item">
+          <div class="reason-icon">🌍</div>
+          <div class="reason-content">
+            <h4>Global Opportunities</h4>
+            <p>This career path offers international work opportunities and remote work flexibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expanded Course Suggestions -->
+    <div class="expanded-courses">
+      <h3>🎓 Comprehensive Learning Path for {{ career }}</h3>
+      <div class="course-categories">
+        <div class="course-category">
+          <h4>📚 Foundation Courses</h4>
+          <ul class="course-list-expanded">
+            <li>Mathematics & Statistics <span class="difficulty-badge">Beginner</span></li>
+            <li>Computer Science Basics <span class="difficulty-badge">Beginner</span></li>
+            <li>Communication Skills <span class="difficulty-badge">Beginner</span></li>
+            <li>Critical Thinking <span class="difficulty-badge">Intermediate</span></li>
+          </ul>
+        </div>
+        <div class="course-category">
+          <h4>🔧 Technical Skills</h4>
+          <ul class="course-list-expanded">
+            <li>Advanced Programming <span class="difficulty-badge">Advanced</span></li>
+            <li>Data Analysis & Visualization <span class="difficulty-badge">Intermediate</span></li>
+            <li>Cloud Computing <span class="difficulty-badge">Intermediate</span></li>
+            <li>Cybersecurity Fundamentals <span class="difficulty-badge">Advanced</span></li>
+          </ul>
+        </div>
+        <div class="course-category">
+          <h4>🚀 Professional Development</h4>
+          <ul class="course-list-expanded">
+            <li>Project Management <span class="difficulty-badge">Intermediate</span></li>
+            <li>Leadership Training <span class="difficulty-badge">Advanced</span></li>
+            <li>Business Strategy <span class="difficulty-badge">Advanced</span></li>
+            <li>Industry Certifications <span class="difficulty-badge">Intermediate</span></li>
+          </ul>
+        </div>
+        <div class="course-category">
+          <h4>🎯 Specialized Skills</h4>
+          <ul class="course-list-expanded">
+            <li>AI & Machine Learning <span class="difficulty-badge">Advanced</span></li>
+            <li>Blockchain Technology <span class="difficulty-badge">Advanced</span></li>
+            <li>UX/UI Design <span class="difficulty-badge">Intermediate</span></li>
+            <li>Digital Marketing <span class="difficulty-badge">Beginner</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {% if resume_filename %}
+      <a href="{{ url_for('download_resume', filename=resume_filename) }}" class="cta-button">Download Your Resume</a>
+    {% endif %}
+
+    
+    <br><br>
+    <a href="/form" class="back-link">🔄 Go Back to Form</a>
+  </main>
+  
+  <!-- Clean AI Chatbot -->
+  <script src="/static/js/clean-chatbot.js"></script>
+  
+  <!-- Celebration Effects JavaScript -->
+  <script>
+    // Celebration Effects Generator
+    class CelebrationEffects {
+      constructor() {
+        this.container = document.getElementById('celebrationContainer');
+        this.init();
+      }
+
+      init() {
+        this.createConfetti();
+        this.createFireworks();
+        this.createSparkles();
+        this.createBubbles();
+        this.createLightBeams();
+        this.createParticles();
+        this.createPulseRings();
+      }
+
+      createConfetti() {
+        for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.animationDelay = Math.random() * 3 + 's';
+          confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+          
+          // Random colors
+          const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#a855f7', '#3b82f6'];
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          
+          this.container.appendChild(confetti);
+        }
+      }
+
+      createFireworks() {
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 50 + '%';
+            
+            // Random colors
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+            firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random explosion direction
+            firework.style.setProperty('--x', (Math.random() - 0.5) * 200 + 'px');
+            firework.style.setProperty('--y', (Math.random() - 0.5) * 200 + 'px');
+            
+            this.container.appendChild(firework);
+            
+            // Remove after animation
+            setTimeout(() => firework.remove(), 2000);
+          }, i * 1000);
+        }
+      }
+
+      createSparkles() {
+        for (let i = 0; i < 20; i++) {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          sparkle.style.left = Math.random() * 100 + '%';
+          sparkle.style.top = Math.random() * 100 + '%';
+          sparkle.style.animationDelay = Math.random() * 1.5 + 's';
+          this.container.appendChild(sparkle);
+        }
+      }
+
+      createBubbles() {
+        for (let i = 0; i < 15; i++) {
+          const bubble = document.createElement('div');
+          bubble.className = 'bubble';
+          bubble.style.left = Math.random() * 100 + '%';
+          bubble.style.width = bubble.style.height = (10 + Math.random() * 20) + 'px';
+          bubble.style.animationDelay = Math.random() * 8 + 's';
+          bubble.style.animationDuration = (8 + Math.random() * 4) + 's';
+          this.container.appendChild(bubble);
+        }
+      }
+
+      createLightBeams() {
+        for (let i = 0; i < 5; i++) {
+          const beam = document.createElement('div');
+          beam.className = 'light-beam';
+          beam.style.left = Math.random() * 100 + '%';
+          beam.style.animationDelay = Math.random() * 8 + 's';
+          beam.style.animationDuration = (8 + Math.random() * 4) + 's';
+          this.container.appendChild(beam);
+        }
+      }
+
+      createParticles() {
+        for (let i = 0; i < 25; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 4 + 's';
+          particle.style.animationDuration = (4 + Math.random() * 2) + 's';
+          this.container.appendChild(particle);
+        }
+      }
+
+      createPulseRings() {
+        for (let i = 0; i < 6; i++) {
+          setTimeout(() => {
+            const ring = document.createElement('div');
+            ring.className = 'pulse-ring';
+            ring.style.left = (20 + Math.random() * 60) + '%';
+            ring.style.top = (20 + Math.random() * 60) + '%';
+            ring.style.width = ring.style.height = (50 + Math.random() * 100) + 'px';
+            
+            this.container.appendChild(ring);
+            
+            // Remove after animation
+            setTimeout(() => ring.remove(), 3000);
+          }, i * 2000);
+        }
+      }
+
+      // Continuous effects regeneration
+      startContinuousEffects() {
+        // Regenerate fireworks every 10 seconds
+        setInterval(() => this.createFireworks(), 10000);
+        
+        // Regenerate pulse rings every 12 seconds
+        setInterval(() => this.createPulseRings(), 12000);
+      }
+    }
+
+    // Initialize celebration effects when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      const celebration = new CelebrationEffects();
+      celebration.startContinuousEffects();
+    });
+  </script>
+</body>
+</html>

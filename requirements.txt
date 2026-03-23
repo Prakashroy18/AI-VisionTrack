@@ -1,0 +1,10 @@
+flask
+scikit-learn
+joblib
+fpdf
+requests
+python-dotenv
+firebase-admin
+firebase
+pandas
+numpy

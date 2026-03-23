@@ -1,0 +1,67 @@
+exam,rank,college,branch,location
+TS EAMCET,1200,OU College of Engineering,CSE,Hyderabad
+TS EAMCET,1800,JNTUH College of Engineering,CSE,Hyderabad
+TS EAMCET,2500,CBIT Hyderabad,CSE,Hyderabad
+TS EAMCET,3500,VNR Vignana Jyothi Institute of Technology,CSE,Hyderabad
+TS EAMCET,4200,GRIET Hyderabad,CSE,Hyderabad
+TS EAMCET,5200,Vasavi College of Engineering,CSE,Hyderabad
+TS EAMCET,6200,KMIT Hyderabad,CSE,Hyderabad
+TS EAMCET,7000,MGIT Hyderabad,CSE,Hyderabad
+TS EAMCET,9000,SNIST Hyderabad,CSE,Hyderabad
+TS EAMCET,12000,CMR Engineering College,CSE,Hyderabad
+TS EAMCET,15000,Malla Reddy Engineering College,CSE,Hyderabad
+TS EAMCET,18000,Anurag University,CSE,Hyderabad
+TS EAMCET,22000,ACE Engineering College,CSE,Hyderabad
+TS EAMCET,25000,BVRIT Hyderabad,CSE,Hyderabad
+TS EAMCET,28000,Gokaraju Rangaraju Institute of Engineering,CSE,Hyderabad
+TS EAMCET,32000,Vasavi College of Engineering,ECE,Hyderabad
+TS EAMCET,35000,Malla Reddy College of Engineering,MECH,Hyderabad
+TS EAMCET,38000,CMR Institute of Technology,IT,Hyderabad
+TS EAMCET,42000,Sreenidhi Institute of Science and Technology,CSE,Hyderabad
+TS EAMCET,45000,BV Raju Institute of Technology,CSE,Hyderabad
+
+AP EAMCET,1000,Andhra University College of Engineering,CSE,Vizag
+AP EAMCET,1800,JNTU Kakinada,CSE,Kakinada
+AP EAMCET,2500,SV University College of Engineering,CSE,Tirupati
+AP EAMCET,3500,GVP College of Engineering,CSE,Vizag
+AP EAMCET,4500,Vignan University,CSE,Guntur
+AP EAMCET,5500,SRM University AP,CSE,Amaravati
+AP EAMCET,7000,KL University,CSE,Vijayawada
+AP EAMCET,9000,RVR & JC College of Engineering,CSE,Guntur
+AP EAMCET,12000,VVIT Guntur,CSE,Guntur
+AP EAMCET,15000,Aditya Engineering College,CSE,Surampalem
+AP EAMCET,18000,Pragati Engineering College,CSE,Surampalem
+AP EAMCET,22000,Lakireddy Bali Reddy College,CSE,Mylavaram
+AP EAMCET,25000,GIET Engineering College,CSE,Rajamahendravaram
+AP EAMCET,28000,NRI Institute of Technology,CSE,Guntur
+AP EAMCET,32000,VSM College of Engineering,CSE,Vijayawada
+AP EAMCET,35000,QIS College of Engineering,CSE,Ongole
+AP EAMCET,38000,Vignana Bharathi Institute,CSE,Tirupati
+AP EAMCET,42000,Prasad V Potluri Siddhartha Institute of Technology,CSE,Vijayawada
+AP EAMCET,45000,Anil Neerukonda Institute of Technology,CSE,Visakhapatnam
+
+JEE,8000,NIT Warangal,CSE,Warangal
+JEE,12000,NIT Calicut,CSE,Calicut
+JEE,15000,NIT Surathkal,CSE,Mangalore
+JEE,18000,NIT Trichy,CSE,Tiruchirappalli
+JEE,22000,NIT Kurukshetra,CSE,Kurukshetra
+JEE,25000,NIT Rourkela,CSE,Rourkela
+JEE,28000,NIT Durgapur,CSE,Durgapur
+JEE,32000,NIT Jamshedpur,CSE,Jamshedpur
+JEE,35000,NIT Allahabad,CSE,Prayagraj
+JEE,38000,NIT Bhopal,CSE,Bhopal
+JEE,42000,NIT Jaipur,CSE,Jaipur
+JEE,45000,NIT Hamirpur,CSE,Hamirpur
+JEE,48000,NIT Jalandhar,CSE,Jalandhar
+JEE,52000,NIT Patna,CSE,Patna
+JEE,55000,NIT Silchar,CSE,Silchar
+JEE,58000,NIT Srinagar,CSE,Srinagar
+JEE,62000,NIT Agartala,CSE,Agartala
+JEE,65000,NIT Goa,CSE,Goa
+JEE,68000,NIT Meghalaya,CSE,Shillong
+JEE,72000,NIT Manipur,CSE,Imphal
+JEE,75000,NIT Mizoram,CSE,Aizawl
+JEE,78000,NIT Nagaland,CSE,Dimapur
+JEE,82000,NIT Puducherry,CSE,Puducherry
+JEE,85000,NIT Sikkim,CSE,Gangtok
+JEE,88000,NIT Arunachal Pradesh,CSE,Yupia

@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Dashboard – AI Career Counselor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      --secondary-gradient: linear-gradient(135deg, #a855f7, #4895ef, #06b6d4, #f59e0b);
+      --glass-bg: rgba(5, 10, 25, 0.85); /* Much darker background */
+      --glass-border: rgba(80, 90, 120, 0.6); /* Stronger border */
+      --neon-glow: 0 0 30px rgba(102, 126, 234, 0.8);
+      --text-primary: #ffffff;
+      --text-secondary: #e0e7ff;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, #1a1f3a 0%, #2d3748 50%, #1a202c 100%);
+      color: var(--text-primary);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(72, 149, 239, 0.3) 0%, transparent 50%);
+      animation: backgroundShift 20s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    /* Milestone Celebration Effects Container */
+    .milestone-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Achievement Badges */
+    .achievement-badge {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      font-weight: bold;
+      animation: badgeFloat 8s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+      opacity: 0.8;
+    }
+
+    @keyframes badgeFloat {
+      0%, 100% {
+        transform: translateY(100vh) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+      10% {
+        transform: translateY(80vh) rotate(45deg) scale(1);
+        opacity: 0.8;
+      }
+      90% {
+        transform: translateY(-10vh) rotate(315deg) scale(1);
+        opacity: 0.8;
+      }
+    }
+
+    /* Success Stars - REMOVED */
+
+    /* Progress Rings */
+    .progress-ring {
+      position: absolute;
+      border: 2px solid transparent;
+      border-top: 2px solid #10b981;
+      border-radius: 50%;
+      animation: ringRotate 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes ringRotate {
+      0% {
+        transform: rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Milestone Particles - REMOVED */
+
+    /* Trophy Icons */
+    .trophy-icon {
+      position: absolute;
+      font-size: 25px;
+      color: #fbbf24;
+      animation: trophyBounce 7s ease-in-out infinite;
+      text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+      opacity: 0.7;
+    }
+
+    @keyframes trophyBounce {
+      0%, 100% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      15% {
+        transform: translateY(85vh) scale(1.1);
+        opacity: 0.7;
+      }
+      85% {
+        transform: translateY(15vh) scale(0.9);
+        opacity: 0.7;
+      }
+    }
+
+    /* Success Ribbons */
+    .success-ribbon {
+      position: absolute;
+      width: 80px;
+      height: 25px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      text-align: center;
+      line-height: 25px;
+      font-weight: bold;
+      font-size: 10px;
+      animation: ribbonWave 10s ease-in-out infinite;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+      opacity: 0.7;
+    }
+
+    @keyframes ribbonWave {
+      0%, 100% {
+        transform: translateX(-100vw) rotate(-3deg);
+        opacity: 0;
+      }
+      10% {
+        transform: translateX(-80vw) rotate(0deg);
+        opacity: 0.7;
+      }
+      90% {
+        transform: translateX(80vw) rotate(0deg);
+        opacity: 0.7;
+      }
+    }
+
+    /* Milestone Flames - REMOVED */
+
+    /* Achievement Light Beams - REMOVED */
+
+    /* Success Confetti - REMOVED */
+
+    @keyframes backgroundShift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-20px, -20px) scale(1.1); }
+      66% { transform: translate(20px, -10px) scale(0.9); }
+    }
+
+    /* Header */
+    .header {
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 15;
+      padding: 15px 30px;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 45px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .user-info:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--secondary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* Main Dashboard Container */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 20px 20px 20px; /* Added 100px top padding to account for fixed header */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto auto;
+      gap: 25px;
+      grid-template-areas:
+        "profile ai"
+        "insights insights"
+        "progress achievements"
+        "learning quick";
+    }
+
+    /* Individual Card Grid Areas */
+    .profile-card {
+      grid-area: profile;
+      min-height: 350px;
+      width: 100%;
+    }
+
+    .ai-recommendations-card {
+      grid-area: ai;
+      min-height: 350px;
+      width: 100%;
+    }
+
+    .insights-card {
+      grid-area: insights;
+      min-height: 250px;
+      width: 100%;
+    }
+
+    .progress-card {
+      grid-area: progress;
+      min-height: 350px;
+      width: 100%;
+    }
+
+    .achievements-card {
+      grid-area: achievements;
+      min-height: 350px;
+      width: 100%;
+    }
+
+    .learning-path-card {
+      grid-area: learning;
+      min-height: 400px;
+      width: 100%;
+    }
+
+    .quick-actions-card {
+      grid-area: quick;
+      min-height: 300px;
+      width: 100%;
+    }
+
+    /* Remove old layout classes */
+    .top-row,
+    .middle-section,
+    .bottom-row,
+    .side-column {
+      display: none;
+    }
+
+    /* Learning Path Styling */
+    .learning-path {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .path-step {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border-left: 5px solid #667eea;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .path-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .path-step:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .path-step:hover::before {
+      opacity: 1;
+    }
+
+    .path-step.completed {
+      border-left-color: #22c55e;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+      opacity: 0.9;
+    }
+
+    .path-step.completed::before {
+      background: linear-gradient(135deg, transparent, rgba(34, 197, 94, 0.15), transparent);
+    }
+
+    .path-step.completed:hover {
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+    }
+
+    .path-step.active {
+      border-left-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08));
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+      transform: translateX(4px);
+    }
+
+    .path-step.active::before {
+      background: linear-gradient(135deg, transparent, rgba(245, 158, 11, 0.2), transparent);
+      opacity: 1;
+    }
+
+    .path-step.active:hover {
+      transform: translateX(12px);
+      box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
+    }
+
+    .step-number {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step-number::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .path-step:hover .step-number {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .path-step:hover .step-number::after {
+      opacity: 0.6;
+    }
+
+    .path-step.completed .step-number {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+    }
+
+    .path-step.completed .step-number::after {
+      background: linear-gradient(135deg, #22c55e, #16a34a, #10b981);
+    }
+
+    .path-step.completed:hover .step-number {
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+    }
+
+    .path-step.active .step-number {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .path-step.active .step-number::after {
+      background: linear-gradient(135deg, #f59e0b, #d97706, #fbbf24);
+      opacity: 0.8;
+    }
+
+    .path-step.active:hover .step-number {
+      transform: scale(1.15);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Profile-Specific Selection Bar Styles */
+    .path-step.engineering {
+      border-left-color: #3b82f6;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
+    }
+
+    .path-step.engineering::before {
+      background: linear-gradient(135deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    }
+
+    .path-step.engineering.active {
+      border-left-color: #1d4ed8;
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.15), rgba(29, 78, 216, 0.08));
+      box-shadow: 0 4px 20px rgba(29, 78, 216, 0.3);
+    }
+
+    .path-step.engineering .step-number {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .path-step.medical {
+      border-left-color: #ef4444;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.02));
+    }
+
+    .path-step.medical::before {
+      background: linear-gradient(135deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+    }
+
+    .path-step.medical.active {
+      border-left-color: #dc2626;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(220, 38, 38, 0.08));
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+    }
+
+    .path-step.medical .step-number {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .path-step.commerce {
+      border-left-color: #10b981;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+    }
+
+    .path-step.commerce::before {
+      background: linear-gradient(135deg, transparent, rgba(16, 185, 129, 0.1), transparent);
+    }
+
+    .path-step.commerce.active {
+      border-left-color: #059669;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.15), rgba(5, 150, 105, 0.08));
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .path-step.commerce .step-number {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .path-step.arts {
+      border-left-color: #a855f7;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(168, 85, 247, 0.02));
+    }
+
+    .path-step.arts::before {
+      background: linear-gradient(135deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+    }
+
+    .path-step.arts.active {
+      border-left-color: #9333ea;
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.15), rgba(147, 51, 234, 0.08));
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .path-step.arts .step-number {
+      background: linear-gradient(135deg, #a855f7, #9333ea);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+    }
+
+    .step-content h4 {
+      margin: 0 0 5px 0;
+      color: #60a5fa;
+      font-size: 1rem;
+    }
+
+    .step-content p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(102, 126, 234, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(102, 126, 234, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: rgba(102, 126, 234, 0.6);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary-gradient);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .card-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--secondary-gradient);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--secondary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .profile-email {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .profile-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #60a5fa;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Progress Card */
+    .progress-item {
+      margin-bottom: 20px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .progress-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .progress-percentage {
+      color: #60a5fa;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--secondary-gradient);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Course List */
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .course-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .course-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .course-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .course-info {
+      flex: 1;
+    }
+
+    .course-name {
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .course-progress {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .course-status {
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .status-completed {
+      background: rgba(102, 126, 234, 0.2);
+      color: #60a5fa;
+    }
+
+    .status-pending {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+    }
+
+    /* Achievements */
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .achievement-item {
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .achievement-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .achievement-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .achievement-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Quick Actions */
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .action-btn {
+      padding: 15px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .action-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .action-text {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Profile Icon Navbar */
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7f5cff, #2fd2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(127, 180, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .avatar:hover {
+      box-shadow: 0 6px 16px rgba(127, 180, 255, 0.6);
+      transform: scale(1.05);
+    }
+
+    .avatar i {
+      color: white;
+      font-size: 18px;
+    }
+
+    /* ML Recommendations Styling */
+    .recommendation-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .recommendation-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .rec-header h4 {
+      color: #60a5fa;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .rec-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .rec-provider {
+      background: var(--secondary-gradient);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .rec-rating {
+      color: #f59e0b;
+      font-size: 0.9rem;
+    }
+
+    .rec-details {
+      margin-bottom: 12px;
+    }
+
+    .rec-details p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .rec-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rec-duration {
+      color: #22c55e;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .rec-level {
+      background: rgba(102, 126, 234, 0.2);
+      color: #60a5fa;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .rec-reason {
+      color: #06b6d4;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    /* Career Insights Styling */
+    .insight-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid;
+    }
+
+    .insight-item.priority-high {
+      border-left-color: #ef4444;
+    }
+
+    .insight-item.priority-medium {
+      border-left-color: #f59e0b;
+    }
+
+    .insight-item.priority-low {
+      border-left-color: #22c55e;
+    }
+
+    .insight-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .insight-type {
+      color: #60a5fa;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .insight-priority {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .priority-high {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .priority-medium {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+    }
+
+    .priority-low {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .insight-message {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Loading States */
+    .loading-spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .dashboard-grid > :last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .achievement-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Milestone Celebration Effects Container -->
+  <div class="milestone-container" id="milestoneContainer"></div>
+  
+  <!-- Include Shared Header -->
+  {% include 'shared_header.html' %}
+  
+  <!-- Main Dashboard -->
+  <div class="dashboard-container">
+    <!-- Profile Card -->
+    <div class="card profile-card">
+      <h2 class="card-title">
+        <div class="card-icon">👤</div>
+        Profile
+      </h2>
+      <div class="profile-avatar">{{ user.avatar_icon }}</div>
+      <h3 class="profile-name">{{ user.name }}</h3>
+      <p class="profile-email">{{ user.email }}</p>
+      
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value">{{ user.total_courses }}</span>
+          <span class="stat-label">Courses</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ user.courses_completed }}</span>
+          <span class="stat-label">Completed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ user.certificates }}</span>
+          <span class="stat-label">Certificates</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Recommendations -->
+    <div class="card ai-recommendations-card">
+      <h2 class="card-title">
+        <div class="card-icon">🤖</div>
+        AI Recommendations
+      </h2>
+      
+      <!-- Profile Selector for Testing -->
+      <div style="margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+        <h4 style="color: #fff; margin-bottom: 10px;">Test Different Profiles:</h4>
+        <select id="profile-selector" onchange="changeProfile()" style="width: 100%; padding: 8px; background: rgba(5, 10, 25, 0.8); border: 1px solid rgba(80, 90, 120, 0.6); border-radius: 5px; color: #fff; backdrop-filter: blur(10px);">
+          <option value="software_developer">Software Developer</option>
+          <option value="data_scientist">Data Scientist</option>
+          <option value="web_developer">Web Developer</option>
+          <option value="business_analyst">Business Analyst</option>
+          <option value="product_manager">Product Manager</option>
+        </select>
+        <button onclick="setTestProfile()" style="margin-top: 10px; padding: 8px 16px; background: var(--secondary-gradient); border: none; border-radius: 5px; color: white; cursor: pointer;">Set Profile</button>
+      </div>
+      
+      <div id="recommendations-container">
+        <div class="loading-spinner"></div>
+        <p>Loading personalized recommendations...</p>
+      </div>
+    </div>
+
+    <!-- Career Insights - Full Width -->
+    <div class="card insights-card">
+      <h2 class="card-title">
+        <div class="card-icon">💡</div>
+        Career Insights
+      </h2>
+      <div id="insights-container">
+        <div class="loading-spinner"></div>
+        <p>Analyzing your career potential...</p>
+      </div>
+    </div>
+
+    <!-- Course Progress -->
+    <div class="card progress-card">
+      <h2 class="card-title">
+        <div class="card-icon">📚</div>
+        Course Progress
+      </h2>
+      <div class="progress-list">
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-title">Engineering Fundamentals</span>
+            <span class="progress-percentage">85%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 85%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-title">Web Development</span>
+            <span class="progress-percentage">60%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-title">Data Science Basics</span>
+            <span class="progress-percentage">40%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%"></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-title">Career Planning</span>
+            <span class="progress-percentage">95%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 95%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="card achievements-card">
+      <h2 class="card-title">
+        <div class="card-icon">🏆</div>
+        Achievements
+      </h2>
+      <div class="achievement-grid">
+        <div class="achievement-item">
+          <div class="achievement-icon">🎯</div>
+          <div class="achievement-name">Goal Setter</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">📚</div>
+          <div class="achievement-name">Quick Learner</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">⭐</div>
+          <div class="achievement-name">Star Student</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">🚀</div>
+          <div class="achievement-name">Fast Track</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">💡</div>
+          <div class="achievement-name">Innovator</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-icon">🏅</div>
+          <div class="achievement-name">Achiever</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learning Path -->
+    <div class="card learning-path-card">
+      <h2 class="card-title">
+        <div class="card-icon">🛤️</div>
+        Your Learning Path
+      </h2>
+      <div class="course-list">
+        <div class="course-item">
+          <div class="course-icon">🎓</div>
+          <div class="course-info">
+            <div class="course-name">High School Foundation</div>
+            <div class="course-progress">Completed</div>
+          </div>
+          <span class="course-status status-completed">✓</span>
+        </div>
+        <div class="course-item">
+          <div class="course-icon">🔬</div>
+          <div class="course-info">
+            <div class="course-name">Engineering Preparation</div>
+            <div class="course-progress">In Progress</div>
+          </div>
+          <span class="course-status status-active">→</span>
+        </div>
+        <div class="course-item">
+          <div class="course-icon">🏛️</div>
+          <div class="course-info">
+            <div class="course-name">College & Career</div>
+            <div class="course-progress">Upcoming</div>
+          </div>
+          <span class="course-status status-pending">⏳</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card quick-actions-card">
+      <h2 class="card-title">
+        <div class="card-icon">⚡</div>
+        Quick Actions
+      </h2>
+      <div class="action-buttons">
+        <a href="/roadmap-carrer" class="action-btn">
+          <span class="action-icon">🗺️</span>
+          <span class="action-text">View Roadmap</span>
+        </a>
+        <a href="/form" class="action-btn">
+          <span class="action-icon">📝</span>
+          <span class="action-text">Update Profile</span>
+        </a>
+        <a href="/result" class="action-btn">
+          <span class="action-icon">📊</span>
+          <span class="action-text">View Results</span>
+        </a>
+        <a href="#" class="action-btn" onclick="showSettings()">
+          <span class="action-icon">⚙️</span>
+          <span class="action-text">Settings</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcWsY1mzvghwApo76syt1XWc9jjLTEtnM",
+      authDomain: "ai-career-counselor-e64b8.firebaseapp.com",
+      projectId: "ai-career-counselor-e64b8",
+      storageBucket: "ai-career-counselor-e64b8.appspot.com",
+      messagingSenderId: "339133928751",
+      appId: "1:339133928751:web:7ad0d40eadcaebb7b23dda"
+    };
+
+    // Initialize Firebase only if not already initialized
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    // Protect dashboard only - check if user is logged in
+    auth.onAuthStateChanged(function(user) {
+      if (!user) {
+        console.log("No user logged in, redirecting to login...");
+        window.location.replace("/login");
+      } else {
+        console.log("User is logged in:", user.email);
+        // Load user data from Firestore
+        loadUserData(user.uid);
+      }
+    });
+    
+    // Load user data from Firestore
+    function loadUserData(user) {
+      console.log("Loading user data for UID:", user.uid);
+      
+      db.collection("users").doc(user.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            const data = doc.data();
+            console.log("User data found:", data);
+            
+            // Update dashboard with user data
+            updateDashboard(data);
+          } else {
+            console.log("No user data found, showing empty dashboard");
+            // Show empty dashboard with default values instead of redirecting
+            updateDashboard({
+              name: user.email.split('@')[0],
+              email: user.email,
+              skills: "Not specified",
+              interests: "Not specified", 
+              workType: "Not specified",
+              experience: "Not specified",
+              education: "Not specified"
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading user data:", error);
+          // Show default dashboard on error
+          updateDashboard({
+            name: user.email.split('@')[0],
+            email: user.email,
+            skills: "Not specified",
+            interests: "Not specified",
+            workType: "Not specified", 
+            experience: "Not specified",
+            education: "Not specified"
+          });
+        });
+    }
+    
+    // Update dashboard with user data
+    function updateDashboard(data) {
+      // Update user profile section
+      const userNameElement = document.querySelector('.profile-name');
+      if (userNameElement) {
+        userNameElement.textContent = data.fullName || data.name || 'User';
+      }
+      
+      // Update user email
+      const userEmailElement = document.querySelector('.profile-email');
+      if (userEmailElement) {
+        userEmailElement.textContent = data.email || 'user@example.com';
+      }
+      
+      // Update progress stats with user data
+      if (data.skills) {
+        const skillsElement = document.querySelector('.progress-item:nth-child(1) .progress-text');
+        if (skillsElement) {
+          skillsElement.textContent = `Skills: ${data.skills}`;
+        }
+      }
+      
+      if (data.interests) {
+        const interestsElement = document.querySelector('.progress-item:nth-child(2) .progress-text');
+        if (interestsElement) {
+          interestsElement.textContent = `Interests: ${data.interests}`;
+        }
+      }
+      
+      if (data.workType) {
+        const workTypeElement = document.querySelector('.progress-item:nth-child(3) .progress-text');
+        if (workTypeElement) {
+          workTypeElement.textContent = `Work Type: ${data.workType}`;
+        }
+      }
+      
+      // Add user details cards if they don't exist
+      addUserDetailCards(data);
+    }
+    
+    // Add detailed user information cards to dashboard
+    function addUserDetailCards(data) {
+      const profileCard = document.querySelector('.profile-card');
+      if (!profileCard) return;
+      
+      // Check if user details already exist
+      if (document.getElementById('userDetailsSection')) return;
+      
+      // Create user details section
+      const detailsSection = document.createElement('div');
+      detailsSection.id = 'userDetailsSection';
+      detailsSection.style.cssText = `
+        margin-top: 20px;
+        padding: 15px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+      `;
+      
+      const detailsHTML = `
+        <h4 style="color: #e0e7ff; margin-bottom: 15px; font-size: 1.1rem;">
+          🎓 Your Profile Details
+        </h4>
+        <div style="display: grid; gap: 10px;">
+          <div style="color: #a0aec0; font-size: 0.9rem;">
+            <strong>Education:</strong> ${data.education || 'Not specified'}
+          </div>
+          <div style="color: #a0aec0; font-size: 0.9rem;">
+            <strong>Experience:</strong> ${data.experience || 'Not specified'}
+          </div>
+          <div style="color: #a0aec0; font-size: 0.9rem;">
+            <strong>Member Since:</strong> ${new Date(data.createdAt).toLocaleDateString()}
+          </div>
+        </div>
+      `;
+      
+      detailsSection.innerHTML = detailsHTML;
+      profileCard.appendChild(detailsSection);
+    }
+    
+    // Save user data to Firestore
+    function saveUserData(uid, data) {
+      console.log("Saving user data for UID:", uid, data);
+      
+      db.collection("users").doc(uid).set(data)
+        .then(() => {
+          console.log("User data saved successfully");
+          updateDashboard(data);
+        })
+        .catch((error) => {
+          console.error("Error saving user data:", error);
+        });
+    }
+    
+    // Initialize dashboard functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load ML recommendations and insights
+      loadRecommendations();
+      loadInsights();
+      
+      // Animate progress bars on load
+      setTimeout(() => {
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+          const width = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 100);
+        });
+      }, 500);
+    });
+
+    // Set test profile
+    async function setTestProfile() {
+      const role = document.getElementById('profile-selector').value;
+      const skills = getSkillsForRole(role);
+      
+      try {
+        const response = await fetch('/set-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            role: role,
+            skills: skills,
+            interests: [],
+            education: 'intermediate',
+            work_type: 'office'
+          })
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+          alert(`Profile set to: ${role}`);
+          loadRecommendations(); // Reload recommendations
+        }
+      } catch (error) {
+        console.error('Error setting profile:', error);
+      }
+    }
+
+    // Get skills for role
+    function getSkillsForRole(role) {
+      const roleSkills = {
+        'software_developer': ['python', 'javascript', 'dsa'],
+        'data_scientist': ['python', 'statistics', 'ml'],
+        'web_developer': ['html', 'css', 'javascript'],
+        'business_analyst': ['excel', 'sql', 'analytics'],
+        'product_manager': ['agile', 'scrum', 'leadership']
+      };
+      return roleSkills[role] || ['python'];
+    }
+
+    // Load AI recommendations
+    async function loadRecommendations() {
+      try {
+        const response = await fetch('/api/recommendations');
+        const data = await response.json();
+        
+        if (data.success) {
+          displayRecommendations(data.recommendations);
+        } else {
+          console.error('Failed to load recommendations:', data.error);
+          document.getElementById('recommendations-container').innerHTML = 
+            '<p>Unable to load recommendations</p>';
+        }
+      } catch (error) {
+        console.error('Error loading recommendations:', error);
+        document.getElementById('recommendations-container').innerHTML = 
+          '<p>Connection error</p>';
+      }
+    }
+
+    // Load career insights
+    async function loadInsights() {
+      try {
+        const response = await fetch('/api/career-insights');
+        const data = await response.json();
+        
+        if (data.success) {
+          displayInsights(data.insights);
+        } else {
+          document.getElementById('insights-container').innerHTML = 
+            '<p style="color: #f59e0b;">Unable to load insights</p>';
+        }
+      } catch (error) {
+        console.error('Error loading insights:', error);
+        document.getElementById('insights-container').innerHTML = 
+          '<p style="color: #f59e0b;">Error loading insights</p>';
+      }
+    }
+
+    // Display recommendations
+    function displayRecommendations(recommendations) {
+      const container = document.getElementById('recommendations-container');
+      
+      if (recommendations.length === 0) {
+        container.innerHTML = '<p>No recommendations available</p>';
+        return;
+      }
+
+      const html = recommendations.map(rec => `
+        <div class="recommendation-item" onclick="window.open('${rec.course.url}', '_blank')">
+          <div class="rec-header">
+            <h4>${rec.course.title}</h4>
+            <div class="rec-meta">
+              <span class="rec-provider">${rec.course.provider}</span>
+              <span class="rec-rating">⭐ ${rec.course.rating}</span>
+            </div>
+          </div>
+          <div class="rec-details">
+            <p>${rec.course.description}</p>
+            <div class="rec-footer">
+              <span class="rec-duration">📅 ${rec.course.duration}</span>
+              <span class="rec-level">${rec.course.level}</span>
+              <span class="rec-reason">${rec.recommendation_reason}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    }
+
+    // Display insights
+    function displayInsights(insights) {
+      const container = document.getElementById('insights-container');
+      
+      if (insights.length === 0) {
+        container.innerHTML = '<p>No insights available</p>';
+        return;
+      }
+
+      const html = insights.map(insight => `
+        <div class="insight-item priority-${insight.priority}">
+          <div class="insight-header">
+            <span class="insight-type">${insight.type.replace('_', ' ').toUpperCase()}</span>
+            <span class="insight-priority">${insight.priority.toUpperCase()}</span>
+          </div>
+          <p class="insight-message">${insight.message}</p>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    }
+
+    // Toggle user menu
+    function toggleMenu() {
+      // This would show a dropdown menu with user options
+      alert('User menu would show: Profile, Settings, Logout');
+    }
+
+    // Show settings
+    function showSettings() {
+      const settingsHTML = `
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                    background: rgba(10, 14, 39, 0.95); backdrop-filter: blur(20px); 
+                    border: 1px solid rgba(120, 119, 198, 0.4); border-radius: 15px; 
+                    padding: 30px; z-index: 1000; min-width: 300px; text-align: center;">
+          <h3 style="color: #fff; margin-bottom: 20px; font-family: 'Orbitron', sans-serif;">
+            ⚙️ Settings
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button onclick="window.location.href='/form'" 
+                    style="padding: 12px 20px; background: linear-gradient(135deg, #6a11cb, #2575fc); 
+                           border: none; border-radius: 8px; color: white; cursor: pointer; 
+                           font-weight: 600; transition: all 0.3s ease;">
+              📝 Update Profile
+            </button>
+            <button onclick="window.location.href='/result'" 
+                    style="padding: 12px 20px; background: linear-gradient(135deg, #a855f7, #4895ef); 
+                           border: none; border-radius: 8px; color: white; cursor: pointer; 
+                           font-weight: 600; transition: all 0.3s ease;">
+              📊 View Results
+            </button>
+            <button onclick="logout()" 
+                    style="padding: 12px 20px; background: linear-gradient(135deg, #ef4444, #dc2626); 
+                           border: none; border-radius: 8px; color: white; cursor: pointer; 
+                           font-weight: 600; transition: all 0.3s ease;">
+              🚪 Logout
+            </button>
+            <button onclick="closeSettings()" 
+                    style="padding: 10px 20px; background: rgba(255, 255, 255, 0.1); 
+                           border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; 
+                           color: #e0e7ff; cursor: pointer; font-weight: 500;">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div onclick="closeSettings()" 
+             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                    background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+      `;
+      
+      // Remove existing settings modal if any
+      const existingModal = document.querySelector('[data-settings-modal]');
+      if (existingModal) {
+        existingModal.remove();
+      }
+      
+      // Add settings modal to body
+      const modalContainer = document.createElement('div');
+      modalContainer.innerHTML = settingsHTML;
+      modalContainer.setAttribute('data-settings-modal', 'true');
+      document.body.appendChild(modalContainer);
+    }
+
+    // Close settings modal
+    function closeSettings() {
+      const modal = document.querySelector('[data-settings-modal]');
+      if (modal) {
+        modal.remove();
+      }
+    }
+
+    // Logout function
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = '/logout';
+      }
+    }
+
+    // Simulate real-time updates
+    setInterval(() => {
+      // Update random progress
+      const progressBars = document.querySelectorAll('.progress-fill');
+      if (progressBars.length > 0) {
+        const randomBar = progressBars[Math.floor(Math.random() * progressBars.length)];
+        const currentWidth = parseInt(randomBar.style.width);
+        if (currentWidth < 100) {
+          randomBar.style.width = (currentWidth + 1) + '%';
+        }
+      }
+    }, 10000);
+
+    // Milestone Celebration Effects Generator
+    class MilestoneCelebrations {
+      constructor() {
+        this.container = document.getElementById('milestoneContainer');
+        this.init();
+      }
+
+      init() {
+        this.createAchievementBadges();
+        /* this.createSuccessStars() - REMOVED */
+        this.createProgressRings();
+        /* this.createMilestoneParticles() - REMOVED */
+        this.createTrophyIcons();
+        this.createSuccessRibbons();
+        /* this.createMilestoneFlames() - REMOVED */
+        /* this.createAchievementBeams() - REMOVED */
+        /* this.createSuccessConfetti() - REMOVED */
+      }
+
+      createAchievementBadges() {
+        const milestones = ['🏆', '🥇', '⭐', '🎯', '💎', '🏅'];
+        for (let i = 0; i < 4; i++) {
+          const badge = document.createElement('div');
+          badge.className = 'achievement-badge';
+          badge.textContent = milestones[Math.floor(Math.random() * milestones.length)];
+          badge.style.left = Math.random() * 100 + '%';
+          badge.style.animationDelay = Math.random() * 8 + 's';
+          badge.style.animationDuration = (8 + Math.random() * 4) + 's';
+          this.container.appendChild(badge);
+        }
+      }
+
+      /* createSuccessStars() - REMOVED */
+
+      createProgressRings() {
+        for (let i = 0; i < 4; i++) {
+          const ring = document.createElement('div');
+          ring.className = 'progress-ring';
+          ring.style.left = Math.random() * 100 + '%';
+          ring.style.top = Math.random() * 100 + '%';
+          ring.style.width = ring.style.height = (25 + Math.random() * 35) + 'px';
+          ring.style.animationDelay = Math.random() * 6 + 's';
+          ring.style.animationDuration = (6 + Math.random() * 3) + 's';
+          this.container.appendChild(ring);
+        }
+      }
+
+      createMilestoneParticles() {
+        for (let i = 0; i < 20; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'milestone-particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 5 + 's';
+          particle.style.animationDuration = (5 + Math.random() * 3) + 's';
+          this.container.appendChild(particle);
+        }
+      }
+
+      createTrophyIcons() {
+        const trophies = ['🏆', '🥇', '🏅', '🎖️', '🏵️'];
+        for (let i = 0; i < 3; i++) {
+          const trophy = document.createElement('div');
+          trophy.className = 'trophy-icon';
+          trophy.textContent = trophies[Math.floor(Math.random() * trophies.length)];
+          trophy.style.left = Math.random() * 100 + '%';
+          trophy.style.animationDelay = Math.random() * 7 + 's';
+          trophy.style.animationDuration = (7 + Math.random() * 3) + 's';
+          this.container.appendChild(trophy);
+        }
+      }
+
+      createSuccessRibbons() {
+        const messages = ['SUCCESS!', 'ACHIEVED!', 'MILESTONE!', 'COMPLETE!', 'EXCELLENT!'];
+        for (let i = 0; i < 5; i++) {
+          const ribbon = document.createElement('div');
+          ribbon.className = 'success-ribbon';
+          ribbon.textContent = messages[Math.floor(Math.random() * messages.length)];
+          ribbon.style.top = Math.random() * 100 + '%';
+          ribbon.style.animationDelay = Math.random() * 10 + 's';
+          ribbon.style.animationDuration = (10 + Math.random() * 5) + 's';
+          this.container.appendChild(ribbon);
+        }
+      }
+
+      /* createMilestoneFlames() - REMOVED */
+
+      /* createAchievementBeams() - REMOVED */
+
+      /* createSuccessConfetti() - REMOVED */
+
+      // Continuous milestone celebrations
+      startContinuousCelebrations() {
+        // Add new achievement badges every 20 seconds
+        setInterval(() => {
+          this.createAchievementBadges();
+        }, 20000);
+        
+        /* Add new success stars every 10 seconds - REMOVED */
+        /* setInterval(() => {
+          this.createSuccessStars();
+        }, 10000); */
+        
+        // Add new trophy icons every 25 seconds
+        setInterval(() => {
+          this.createTrophyIcons();
+        }, 25000);
+        
+        // Add new success ribbons every 30 seconds
+        setInterval(() => {
+          this.createSuccessRibbons();
+        }, 30000);
+      }
+
+      // Celebration on user achievement
+      celebrateAchievement(type = 'general') {
+        const celebration = document.createElement('div');
+        celebration.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 60px;
+          z-index: 9999;
+          animation: achievementPop 2s ease-out forwards;
+        `;
+        
+        const icons = {
+          'general': '🎉',
+          'milestone': '🏆',
+          'success': '⭐',
+          'complete': '🎯',
+          'excellent': '💎'
+        };
+        
+        celebration.textContent = icons[type] || icons['general'];
+        document.body.appendChild(celebration);
+        
+        setTimeout(() => celebration.remove(), 2000);
+      }
+    }
+
+    // Add achievement pop animation
+    const achievementPopStyle = document.createElement('style');
+    achievementPopStyle.textContent = `
+      @keyframes achievementPop {
+        0% {
+          transform: translate(-50%, -50%) scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(achievementPopStyle);
+
+    // Initialize milestone celebrations when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      const celebrations = new MilestoneCelebrations();
+      celebrations.startContinuousCelebrations();
+      
+      // Celebrate when user reaches certain milestones
+      setTimeout(() => celebrations.celebrateAchievement('milestone'), 3000);
+      setTimeout(() => celebrations.celebrateAchievement('success'), 8000);
+      setTimeout(() => celebrations.celebrateAchievement('complete'), 15000);
+    });
+  </script>
+</body>
+</html>

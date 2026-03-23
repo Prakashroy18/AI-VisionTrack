@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Career Counselor – Neural Gateway Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(120deg, #0a0e27, #1a1f4d, #0f172a);
+      background-size: 400% 400%;
+      animation: bgFlow 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      position: relative;
+      padding-top: 120px; /* Increased top padding */
+    }
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Shared Header Styles */
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px 0 50px;
+      height: 70px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 15;
+      box-sizing: border-box;
+    }
+
+    .logo-container {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 45px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .center-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .center-nav a {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e0e7ff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+
+    .center-nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #4895ef);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .center-nav a:hover::before {
+      width: 80%;
+    }
+
+    .center-nav a:hover, .center-nav a:focus {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7f5cff, #2fd2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(127, 180, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .profile-icon:hover {
+      box-shadow: 0 6px 16px rgba(127, 180, 255, 0.6);
+      transform: scale(1.05);
+    }
+
+    .profile-icon i {
+      color: white;
+      font-size: 18px;
+    }
+
+    /* Enhanced Login-Themed Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        /* Enhanced Security Lock Patterns */
+        radial-gradient(circle at 20% 20%, rgba(106, 17, 203, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(37, 117, 252, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(168, 85, 247, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.2) 0%, transparent 40%),
+        /* Enhanced Authentication Grid */
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 50px,
+          rgba(106, 17, 203, 0.08) 50px,
+          rgba(106, 17, 203, 0.08) 52px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 50px,
+          rgba(37, 117, 252, 0.08) 50px,
+          rgba(37, 117, 252, 0.08) 52px
+        ),
+        /* Additional Security Elements */
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 100px,
+          rgba(168, 85, 247, 0.05) 100px,
+          rgba(168, 85, 247, 0.05) 102px
+        );
+      animation: securityPulse 20s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes securityPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Additional Background Layer for More Dynamic Effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(106, 17, 203, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 70% 30%, rgba(37, 117, 252, 0.1) 0%, transparent 60%);
+      animation: bgShift 25s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-20px, -20px) scale(1.05); }
+      66% { transform: translate(20px, -10px) scale(0.95); }
+    }
+
+    /* Login-Themed Particles */
+    .ai-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ai-particles span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(120, 119, 198, 0.8);
+      border-radius: 50%;
+      animation: floatUp 20s linear infinite;
+    }
+
+    .ai-particles .lock-particle {
+      width: 24px;
+      height: 24px;
+      background: none;
+      font-size: 18px;
+      color: rgba(106, 17, 203, 0.8);
+      animation: lockFloat 25s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(106, 17, 203, 0.6));
+    }
+
+    .ai-particles .key-particle {
+      width: 22px;
+      height: 22px;
+      background: none;
+      font-size: 16px;
+      color: rgba(37, 117, 252, 0.8);
+      animation: keyFloat 22s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(37, 117, 252, 0.6));
+    }
+
+    .ai-particles .shield-particle {
+      width: 26px;
+      height: 26px;
+      background: none;
+      font-size: 20px;
+      color: rgba(168, 85, 247, 0.7);
+      animation: shieldFloat 28s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes lockFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.9;
+      }
+      to {
+        transform: translateY(-20vh) rotate(180deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes keyFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg) translateX(0px) scale(0.7);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-15vh) rotate(360deg) translateX(30px) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shieldFloat {
+      from {
+        transform: translateY(100vh) scale(0.6);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.7;
+      }
+      85% {
+        opacity: 0.7;
+      }
+      to {
+        transform: translateY(-25vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Neural Network Lines */
+    .neural-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.6), transparent);
+      animation: pulseLine 8s ease-in-out infinite;
+    }
+
+    @keyframes pulseLine {
+      0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
+      50% { opacity: 0.8; transform: scaleX(1); }
+    }
+
+    /* Glassmorphism Login Card */
+    .login-card {
+      width: 380px;
+      padding: 40px;
+      background: rgba(10, 14, 39, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: fadeSlide 1s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Login Header */
+    .login-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .ai-logo {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(106, 17, 203, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(106, 17, 203, 0.6); }
+    }
+
+    .login-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      color: #a0a9c9;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    /* Interactive Input Groups */
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 16px;
+      top: 14px;
+      color: #a0a9c9;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 2px rgba(120,119,198,0.6);
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 12px;
+      font-size: 0.85rem;
+      color: #6a11cb;
+      background: rgba(10, 14, 39, 0.9);
+      padding: 0 8px;
+      border-radius: 4px;
+    }
+
+    /* AI-Style Login Button */
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      display: block;
+      margin: 10px auto 0;
+    }
+
+    .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .login-btn:hover::before {
+      left: 100%;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(106,17,203,0.6);
+    }
+
+    .login-btn:active {
+      transform: scale(0.97);
+    }
+
+    .login-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .login-btn.success {
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+    }
+
+    /* Error Message */
+    .error-message {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #f59e0b;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    /* Back Link */
+    .back-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .back-link a {
+      color: #a0a9c9;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-link a:hover {
+      color: #6a11cb;
+    }
+
+    /* Create Account Section */
+    .create-account {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .create-account p {
+      color: #9aa3c7;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    /* Secondary AI Button */
+    .signup-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 26px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #e0e7ff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(120, 119, 198, 0.4);
+      backdrop-filter: blur(10px);
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glow sweep effect */
+    .signup-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(106, 17, 203, 0.25),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .signup-btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .signup-btn:hover {
+      background: rgba(106, 17, 203, 0.25);
+      color: #fff;
+      box-shadow: 0 0 25px rgba(106, 17, 203, 0.6);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .signup-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      body {
+        padding-top: 100px; /* Increased mobile top padding */
+      }
+      
+      header.navbar {
+        padding: 0 16px;
+        height: 60px;
+      }
+      
+      .center-nav {
+        gap: 12px;
+      }
+      
+      .center-nav a {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+      
+      .logo {
+        height: 35px;
+      }
+      
+      .profile-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .profile-icon i {
+        font-size: 16px;
+      }
+      
+      .login-card {
+        width: 90%;
+        padding: 30px 20px;
+        margin-top: 20px;
+      }
+      
+      .login-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header.navbar {
+        padding: 0 20px;
+      }
+      
+      .center-nav {
+        gap: 16px;
+      }
+      
+      .center-nav a {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared Header -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+    </div>
+    <nav class="center-nav">
+      <a href="/">Home</a>
+      <a href="/form">Form</a>
+      <a href="/roadmap">Career Roadmap</a>
+    </nav>
+    <div class="header-right">
+      <div class="profile-icon" onclick="window.location.href='/dashboard'">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dynamic AI Background Elements -->
+  <div class="ai-particles"></div>
+  <div class="neural-lines"></div>
+
+  <!-- Premium Login Card -->
+  <div class="login-card">
+    <div class="login-header">
+      <div class="ai-logo">
+        <i class="fas fa-brain"></i>
+      </div>
+      <h1 class="login-title">NEURAL GATEWAY</h1>
+      <p class="login-subtitle">AI Career Counselor Secure Access</p>
+    </div>
+
+    {% if error %}
+      <div class="error-message">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('login') }}" id="loginForm">
+      <div class="input-group">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">Email Address</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder=" " required>
+        <label for="password">Password</label>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">
+        <span class="btn-text">Initialize Neural Connection</span>
+      </button>
+    </form>
+
+    <div class="back-link">
+      <a href="{{ url_for('index') }}">
+        <i class="fas fa-arrow-left"></i> Return to Base
+      </a>
+    </div>
+
+    <!-- Create Account Section -->
+    <div class="create-account">
+      <p>New to Neural Gateway?</p>
+      <a href="/signup" class="signup-btn">
+        <i class="fas fa-user-plus"></i>
+        Create Account
+      </a>
+    </div>
+  </div>
+
+  <!-- Firebase SDK - Modern Modular Version -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcWsY1mzvghwApo76syt1XWc9jjLTEtnM",
+      authDomain: "ai-career-counselor-e64b8.firebaseapp.com",
+      projectId: "ai-career-counselor-e64b8",
+      storageBucket: "ai-career-counselor-e64b8.appspot.com",
+      messagingSenderId: "339133928751",
+      appId: "1:339133928751:web:7ad0d40eadcaebb7b23dda"
+    };
+
+    // Initialize Firebase only if not already initialized
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    
+    // No auto-redirect from login page - let user login normally
+    
+    // Real Firebase Login
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      console.log("Login attempt for:", email);
+      
+      const btn = document.getElementById('loginBtn');
+      const btnText = btn.querySelector('.btn-text');
+      
+      // Show loading state
+      btnText.textContent = "Authenticating...";
+      btn.disabled = true;
+      
+      // Firebase authentication
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          console.log("Login successful:", userCredential.user.email);
+          btnText.textContent = "Success ✓";
+          
+          // Set Flask session data (optional but helpful)
+          fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: userCredential.user.email,
+              uid: userCredential.user.uid
+            })
+          }).then(() => {
+            // Redirect to dashboard after setting session
+            setTimeout(() => {
+              window.location.href = "/dashboard";
+            }, 1000);
+          }).catch(() => {
+            // Even if session setting fails, still redirect
+            setTimeout(() => {
+              window.location.href = "/dashboard";
+            }, 1000);
+          });
+        })
+        .catch((error) => {
+          console.error("Login error:", error);
+          
+          btnText.textContent = "Initialize Neural Connection";
+          btn.disabled = false;
+          
+          alert("Login Failed: " + error.message);
+        });
+    });
+
+    // Initialize Login-Themed Particles
+    const particleBox = document.querySelector('.ai-particles');
+    
+    // Regular particles
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('span');
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDelay = Math.random() * 20 + 's';
+      p.style.animationDuration = 15 + Math.random() * 15 + 's';
+      particleBox.appendChild(p);
+    }
+    
+    // Lock particles (🔒)
+    for (let i = 0; i < 6; i++) {
+      const lock = document.createElement('span');
+      lock.className = 'lock-particle';
+      lock.textContent = '🔒';
+      lock.style.left = Math.random() * 100 + 'vw';
+      lock.style.animationDelay = Math.random() * 25 + 's';
+      particleBox.appendChild(lock);
+    }
+    
+    // Key particles (🔑)
+    for (let i = 0; i < 5; i++) {
+      const key = document.createElement('span');
+      key.className = 'key-particle';
+      key.textContent = '🔑';
+      key.style.left = Math.random() * 100 + 'vw';
+      key.style.animationDelay = Math.random() * 22 + 's';
+      particleBox.appendChild(key);
+    }
+    
+    // Shield particles (🛡️)
+    for (let i = 0; i < 4; i++) {
+      const shield = document.createElement('span');
+      shield.className = 'shield-particle';
+      shield.textContent = '🛡️';
+      shield.style.left = Math.random() * 100 + 'vw';
+      shield.style.animationDelay = Math.random() * 28 + 's';
+      particleBox.appendChild(shield);
+    }
+
+    // Initialize Neural Network Lines
+    const neuralBox = document.querySelector('.neural-lines');
+    for (let i = 0; i < 8; i++) {
+      const line = document.createElement('div');
+      line.className = 'neural-line';
+      line.style.width = Math.random() * 60 + 20 + '%';
+      line.style.left = Math.random() * 40 + '%';
+      line.style.top = Math.random() * 100 + '%';
+      line.style.animationDelay = Math.random() * 8 + 's';
+      neuralBox.appendChild(line);
+    }
+
+    // Add input focus effects
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'scale(1.02)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'scale(1)';
+      });
+    });
+  </script>
+</body>
+</html>

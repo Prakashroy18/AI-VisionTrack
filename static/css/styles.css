@@ -1,0 +1,263 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f7f9fc, #eef1f7);
+  color: #333;
+}
+
+/* --- HEADER --- */
+header.navbar {
+  padding: 0 30px;
+  height: 56px;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 33, 64, 0.85);
+  box-shadow: 0 2px 18px rgba(30,40,56,0.04);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 15;
+}
+
+.logo-container {
+  padding: 2px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0,50,100,0.15);
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  vertical-align: middle;
+  display: block;
+}
+
+nav {
+  display: flex;
+  gap: 32px;
+}
+
+nav a {
+  font-size: 1rem;
+  margin: 0 14px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.login-btn {
+  margin-left: 32px;
+  padding: 8px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  background: #ffd700;
+  color: #1f4287;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --- HERO --- */
+.hero {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  background: url('../images/background.jpg') no-repeat center center/cover;
+  color: white;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background-color: #635bff;
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background-color: #4a42d4;
+}
+
+/* --- FOOTER --- */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+/* --- FORM --- */
+.form-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.form-container h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* --- RESULT --- */
+.result-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fefefe;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.result-container h2 {
+  margin-bottom: 20px;
+}
+
+.suggestion-box {
+  background: #f1f8ff;
+  border-left: 5px solid #0077cc;
+  padding: 15px 20px;
+  margin-top: 20px;
+  border-radius: 6px;
+}
+
+.cta-button {
+  background-color: #007bff;
+  color: #fff !important;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #444;
+}
+
+/* --- ROADMAP --- */
+.roadmap-container {
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.career-selector {
+  margin-bottom: 30px;
+}
+
+.roadmap-btn {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.roadmap-btn.active {
+  background: #635bff;
+  color: #fff;
+}
+
+#roadmap-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+}
+
+.node {
+  background: #ffffff;
+  border: 2px solid #635bff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 10px;
+  font-size: 0.95rem;
+  max-width: 180px;
+}
+
+.arrow {
+  width: 40px;
+  height: 2px;
+  background: #635bff;
+  position: relative;
+  margin: 0 -20px;
+}
+
+.arrow::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: -5px;
+  border: 6px solid transparent;
+  border-left-color: #635bff;
+}

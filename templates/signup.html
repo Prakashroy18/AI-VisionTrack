@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Account - AI Career Counselor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(120deg, #0a0e27, #1a1f4d, #0f172a);
+      background-size: 400% 400%;
+      overflow-y: auto; /* Enable scrolling */
+      animation: bgFlow 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 120px;
+    }
+
+    @keyframes bgFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Select field labels */
+    .select-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #a0a9c9;
+      font-size: 0.9rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .input-group select {
+      width: 100%;
+      padding: 18px 16px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .input-group select:focus {
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Dropdown menu options - fix browser defaults */
+    .input-group select option {
+      background: #0a0e27; /* Dark background */
+      color: #ffffff; /* White text */
+      padding: 10px;
+    }
+
+    .input-group select option:hover {
+      background: #1a1f4d; /* Hover state */
+    }
+
+    /* Enhanced Login-Themed Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        /* Enhanced Security Lock Patterns */
+        radial-gradient(circle at 20% 20%, rgba(106, 17, 203, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(37, 117, 252, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(168, 85, 247, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.2) 0%, transparent 40%),
+        /* Enhanced Authentication Grid */
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 50px,
+          rgba(106, 17, 203, 0.08) 50px,
+          rgba(106, 17, 203, 0.08) 52px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 50px,
+          rgba(37, 117, 252, 0.08) 50px,
+          rgba(37, 117, 252, 0.08) 52px
+        ),
+        /* Additional Security Elements */
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 100px,
+          rgba(168, 85, 247, 0.05) 100px,
+          rgba(168, 85, 247, 0.05) 102px
+        );
+      animation: securityPulse 20s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes securityPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Additional Background Layer for More Dynamic Effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(106, 17, 203, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 70% 30%, rgba(37, 117, 252, 0.1) 0%, transparent 60%);
+      animation: bgShift 25s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-20px, -20px) scale(1.05); }
+      66% { transform: translate(20px, -10px) scale(0.95); }
+    }
+
+    /* Login-Themed Particles */
+    .ai-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ai-particles span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(120, 119, 198, 0.8);
+      border-radius: 50%;
+      animation: floatUp 20s linear infinite;
+    }
+
+    .ai-particles .lock-particle {
+      width: 24px;
+      height: 24px;
+      background: none;
+      font-size: 18px;
+      color: rgba(106, 17, 203, 0.8);
+      animation: lockFloat 25s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(106, 17, 203, 0.6));
+    }
+
+    .ai-particles .key-particle {
+      width: 22px;
+      height: 22px;
+      background: none;
+      font-size: 16px;
+      color: rgba(37, 117, 252, 0.8);
+      animation: keyFloat 22s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(37, 117, 252, 0.6));
+    }
+
+    .ai-particles .shield-particle {
+      width: 26px;
+      height: 26px;
+      background: none;
+      font-size: 20px;
+      color: rgba(168, 85, 247, 0.7);
+      animation: shieldFloat 28s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes lockFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.9;
+      }
+      to {
+        transform: translateY(-20vh) rotate(180deg) scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes keyFloat {
+      from {
+        transform: translateY(100vh) rotate(0deg) translateX(0px) scale(0.7);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-15vh) rotate(360deg) translateX(30px) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shieldFloat {
+      from {
+        transform: translateY(100vh) scale(0.6);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.7;
+      }
+      85% {
+        opacity: 0.7;
+      }
+      to {
+        transform: translateY(-25vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Neural Network Lines */
+    .neural-lines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.6), transparent);
+      animation: pulseLine 8s ease-in-out infinite;
+    }
+
+    @keyframes pulseLine {
+      0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
+      50% { opacity: 0.8; transform: scaleX(1); }
+    }
+
+    /* Shared Header Styles */
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px 0 50px;
+      height: 70px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 15;
+      box-sizing: border-box;
+    }
+
+    .logo-container {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 45px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .center-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .center-nav a {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e0e7ff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+
+    .center-nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #4895ef);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .center-nav a:hover::before {
+      width: 80%;
+    }
+
+    .center-nav a:hover, .center-nav a:focus {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7f5cff, #2fd2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(127, 180, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .profile-icon:hover {
+      box-shadow: 0 6px 16px rgba(127, 180, 255, 0.6);
+      transform: scale(1.05);
+    }
+
+    .profile-icon i {
+      color: white;
+      font-size: 18px;
+    }
+
+    /* Signup Card */
+    .signup-card {
+      width: 420px;
+      padding: 40px;
+      background: rgba(10, 14, 39, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      animation: fadeSlide 0.8s ease-out;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .ai-logo {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(106, 17, 203, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(106, 17, 203, 0.6); }
+    }
+
+    .signup-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .signup-subtitle {
+      color: #a0a9c9;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    /* Form Elements */
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    /* Floating label only for INPUT fields */
+    .input-group input + label {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      color: #a0a9c9;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 18px 16px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1.1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 2px rgba(120,119,198,0.6);
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -12px;
+      left: 12px;
+      font-size: 0.85rem;
+      color: #6a11cb;
+      background: rgba(10, 14, 39, 0.9);
+      padding: 0 8px;
+      border-radius: 4px;
+    }
+
+    /* Signup Button */
+    .signup-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      display: block;
+      margin: 20px 0;
+    }
+
+    .signup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(106,17,203,0.6);
+    }
+
+    .signup-btn:active {
+      transform: scale(0.97);
+    }
+
+    .signup-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .signup-btn.success {
+      background: linear-gradient(135deg,#22c55e,#16a34a);
+    }
+
+    /* Back Link */
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: #a0a9c9;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-link a:hover {
+      color: #6a11cb;
+    }
+
+    /* Error Message */
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    /* Success Message */
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      body {
+        padding-top: 100px;
+      }
+      
+      header.navbar {
+        padding: 0 16px;
+        height: 60px;
+      }
+      
+      .center-nav {
+        gap: 12px;
+      }
+      
+      .center-nav a {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+      }
+      
+      .logo {
+        height: 35px;
+      }
+      
+      .profile-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .profile-icon i {
+        font-size: 16px;
+      }
+      
+      .signup-card {
+        width: 90%;
+        padding: 30px 20px;
+        margin-top: 20px;
+      }
+      
+      .signup-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared Header -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+    </div>
+    <nav class="center-nav">
+      <a href="/">Home</a>
+      <a href="/form">Form</a>
+      <a href="/roadmap">Career Roadmap</a>
+    </nav>
+    <div class="header-right">
+      <div class="profile-icon" onclick="window.location.href='/dashboard'">
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dynamic AI Background Elements -->
+  <div class="ai-particles"></div>
+  <div class="neural-lines"></div>
+
+  <!-- Signup Card -->
+  <div class="signup-card">
+    <div class="signup-header">
+      <div class="ai-logo">
+        <i class="fas fa-brain"></i>
+      </div>
+      <h1 class="signup-title">CREATE ACCOUNT</h1>
+      <p class="signup-subtitle">Join Neural Gateway AI Career Counselor</p>
+    </div>
+
+    {% if error %}
+      <div class="error-message">
+        {{ error }}
+      </div>
+    {% endif %}
+
+    {% if success %}
+      <div class="success-message">
+        {{ success }}
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('signup') }}" id="signupForm">
+      <div class="input-group">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">Email Address</label>
+      </div>
+      <div class="input-group">
+        <input type="text" id="fullName" name="fullName" placeholder=" " required>
+        <label for="fullName">Full Name</label>
+      </div>
+      <div class="input-group">
+        <label class="select-label">Education Level</label>
+        <select id="education" name="education" required>
+          <option value="">Select Education Level</option>
+          <option value="high-school">High School</option>
+          <option value="bachelors">Bachelor's Degree</option>
+          <option value="masters">Master's Degree</option>
+          <option value="phd">PhD</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="text" id="skills" name="skills" placeholder=" " required>
+        <label for="skills">Skills (comma separated)</label>
+      </div>
+      <div class="input-group">
+        <input type="text" id="interests" name="interests" placeholder=" " required>
+        <label for="interests">Career Interests</label>
+      </div>
+      <div class="input-group">
+        <input type="text" id="experience" name="experience" placeholder=" " required>
+        <label for="experience">Work Experience</label>
+      </div>
+      <div class="input-group">
+        <label class="select-label">Work Preference</label>
+        <select id="workType" name="workType" required>
+          <option value="">Select Work Type</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">On-site</option>
+          <option value="freelance">Freelance</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder=" " required>
+        <label for="password">Password</label>
+      </div>
+      <div class="input-group">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder=" " required>
+        <label for="confirm_password">Confirm Password</label>
+      </div>
+
+      <button type="submit" class="signup-btn" id="signupBtn">
+        <span class="btn-text">Create Neural Account</span>
+      </button>
+    </form>
+
+    <div class="back-link">
+      <a href="{{ url_for('login') }}">
+        <i class="fas fa-arrow-left"></i> Back to Login
+      </a>
+    </div>
+  </div>
+
+  <!-- Firebase SDK - Modern Modular Version -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcWsY1mzvghwApo76syt1XWc9jjLTEtnM",
+      authDomain: "ai-career-counselor-e64b8.firebaseapp.com",
+      projectId: "ai-career-counselor-e64b8",
+      storageBucket: "ai-career-counselor-e64b8.appspot.com",
+      messagingSenderId: "339133928751",
+      appId: "1:339133928751:web:7ad0d40eadcaebb7b23dda"
+    };
+
+    // Initialize Firebase only if not already initialized
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    // No auto-redirect from signup page - let user signup normally
+    
+    // Real Firebase Signup
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Collect all form data
+      const email = document.getElementById("email").value;
+      const fullName = document.getElementById("fullName").value;
+      const education = document.getElementById("education").value;
+      const skills = document.getElementById("skills").value;
+      const interests = document.getElementById("interests").value;
+      const workType = document.getElementById("workType").value;
+      const experience = document.getElementById("experience").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm_password").value;
+      
+      // Client-side validation
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long!");
+        return;
+      }
+      
+      const btn = document.getElementById('signupBtn');
+      const btnText = btn.querySelector('.btn-text');
+      
+      // Show loading state
+      btnText.textContent = "Creating Account...";
+      btn.disabled = true;
+      
+      // Firebase authentication
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          console.log("Signup successful:", userCredential);
+          
+          // Save user data to Firestore
+          const userData = {
+            fullName: fullName,
+            email: email,
+            education: education,
+            skills: skills,
+            interests: interests,
+            workType: workType,
+            experience: experience,
+            createdAt: new Date().toISOString()
+          };
+          
+          // Save to Firestore using user's UID
+          db.collection("users").doc(userCredential.user.uid).set(userData)
+            .then(() => {
+              console.log("User data saved to Firestore:", userData);
+              btnText.textContent = "Account Created ✓";
+              
+              // Redirect to login after successful signup
+              setTimeout(() => {
+                window.location.href = "/login";
+              }, 1500);
+            })
+            .catch((error) => {
+              console.error("Error saving user data:", error);
+              alert("Account created but failed to save profile data. Please update your profile later.");
+              btnText.textContent = "Account Created ✓";
+              setTimeout(() => {
+                window.location.href = "/login";
+              }, 1500);
+            });
+        })
+        .catch((error) => {
+          console.error("Signup error:", error);
+          
+          btnText.textContent = "Create Neural Account";
+          btn.disabled = false;
+          
+          alert("Signup Failed: " + error.message);
+        });
+    });
+
+    // Initialize Login-Themed Particles
+    const particleBox = document.querySelector('.ai-particles');
+    
+    // Regular particles
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('span');
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDelay = Math.random() * 20 + 's';
+      p.style.animationDuration = 15 + Math.random() * 15 + 's';
+      particleBox.appendChild(p);
+    }
+    
+    // Lock particles (🔒)
+    for (let i = 0; i < 6; i++) {
+      const lock = document.createElement('span');
+      lock.className = 'lock-particle';
+      lock.textContent = '🔒';
+      lock.style.left = Math.random() * 100 + 'vw';
+      lock.style.animationDelay = Math.random() * 25 + 's';
+      particleBox.appendChild(lock);
+    }
+    
+    // Key particles (🔑)
+    for (let i = 0; i < 5; i++) {
+      const key = document.createElement('span');
+      key.className = 'key-particle';
+      key.textContent = '🔑';
+      key.style.left = Math.random() * 100 + 'vw';
+      key.style.animationDelay = Math.random() * 22 + 's';
+      particleBox.appendChild(key);
+    }
+    
+    // Shield particles (🛡️)
+    for (let i = 0; i < 4; i++) {
+      const shield = document.createElement('span');
+      shield.className = 'shield-particle';
+      shield.textContent = '🛡️';
+      shield.style.left = Math.random() * 100 + 'vw';
+      shield.style.animationDelay = Math.random() * 28 + 's';
+      particleBox.appendChild(shield);
+    }
+
+    // Initialize Neural Network Lines
+    const neuralBox = document.querySelector('.neural-lines');
+    for (let i = 0; i < 8; i++) {
+      const line = document.createElement('div');
+      line.className = 'neural-line';
+      line.style.width = Math.random() * 60 + 20 + '%';
+      line.style.left = Math.random() * 40 + '%';
+      line.style.top = Math.random() * 100 + '%';
+      line.style.animationDelay = Math.random() * 8 + 's';
+      neuralBox.appendChild(line);
+    }
+  </script>
+</body>
+</html>

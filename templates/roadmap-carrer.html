@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Combined Career Roadmap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    body, html {
+      margin: 0; padding: 0;
+      min-height: 100%;
+      font-family: 'Rajdhani', sans-serif;
+      background: #0a0e27;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+      padding: 30px 0;
+      color: #fff;
+      position: relative;
+    }
+    
+    /* Engineering Blueprint Grid */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(96,165,250,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,165,250,0.06) 1px, transparent 1px),
+        linear-gradient(rgba(96,165,250,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96,165,250,0.02) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 25% 30%, rgba(59, 130, 246, 0.4), transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(16, 185, 129, 0.4), transparent 50%),
+        radial-gradient(circle at 45% 85%, rgba(251, 146, 60, 0.3), transparent 40%);
+      animation: gradientShift 15s ease infinite;
+      z-index: 0;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.2), transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(220, 38, 38, 0.2), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.15), transparent 60%);
+      animation: gradientPulse 20s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    /* Engineering Circuit Effect */
+    body::before {
+      background: 
+        radial-gradient(circle at 25% 30%, rgba(59, 130, 246, 0.4), transparent 50%),
+        radial-gradient(circle at 75% 70%, rgba(16, 185, 129, 0.4), transparent 50%),
+        radial-gradient(circle at 45% 85%, rgba(251, 146, 60, 0.3), transparent 40%),
+        linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent),
+        linear-gradient(135deg, transparent, rgba(16, 185, 129, 0.1), transparent),
+        linear-gradient(225deg, transparent, rgba(251, 146, 60, 0.1), transparent);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0deg); 
+      }
+      25% { 
+        opacity: 0.8; 
+        transform: scale(1.05) rotate(90deg); 
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(1.02) rotate(180deg); 
+      }
+      75% { 
+        opacity: 0.7; 
+        transform: scale(1.03) rotate(270deg); 
+      }
+    }
+    
+    @keyframes gradientPulse {
+      0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1) rotate(0deg); 
+      }
+      33% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotate(120deg); 
+      }
+      66% { 
+        opacity: 0.4; 
+        transform: scale(0.95) rotate(240deg); 
+      }
+    }
+    
+    /* Engineering Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    /* Circuit Nodes */
+    .circuit-nodes {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .circuit-node {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #60a5fa;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(96,165,250,0.8);
+      animation: nodePulse 3s infinite ease-in-out;
+    }
+
+    @keyframes nodePulse {
+      0%,100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.8); opacity: 1; }
+    }
+    
+    /* Engineering Icons */
+    .engineering-icons {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .eng-icon {
+      position: absolute;
+      font-size: 28px;
+      opacity: 0.08;
+      animation: slowRotate 40s linear infinite;
+    }
+
+    @keyframes slowRotate {
+      from { transform: rotate(0deg) translateY(0); }
+      to { transform: rotate(360deg) translateY(-20px); }
+    }
+    
+    /* Data Stream */
+    .data-stream {
+      position: fixed;
+      inset: 0;
+      font-family: monospace;
+      font-size: 11px;
+      color: rgba(96,165,250,0.08);
+      pointer-events: none;
+      z-index: 0;
+      animation: streamMove 60s linear infinite;
+      white-space: pre;
+      overflow: hidden;
+    }
+
+    @keyframes streamMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100%); }
+    }
+    
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 20s infinite linear;
+    }
+    
+    .particle:nth-child(odd) {
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.8), transparent);
+      animation-duration: 25s;
+    }
+    
+    .particle:nth-child(3n) {
+      background: radial-gradient(circle, rgba(251, 146, 60, 0.8), transparent);
+      animation-duration: 22s;
+    }
+    
+    .particle:nth-child(5n) {
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.8), transparent);
+      animation-duration: 28s;
+    }
+    
+    .particle:nth-child(7n) {
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.8), transparent);
+      animation-duration: 30s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px) translateX(0px) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(50px) scale(0.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Engineering Circuit Shapes */
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      pointer-events: none;
+      animation: rotate 60s infinite linear;
+    }
+    
+    .shape:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      left: 5%;
+      top: 10%;
+      border-radius: 50%;
+      animation-duration: 45s;
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+    
+    .shape:nth-child(2) {
+      width: 80px;
+      height: 80px;
+      left: 85%;
+      top: 20%;
+      transform: rotate(45deg);
+      animation-duration: 55s;
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    
+    .shape:nth-child(3) {
+      width: 120px;
+      height: 120px;
+      left: 60%;
+      top: 70%;
+      border-radius: 30%;
+      animation-duration: 50s;
+      border-color: rgba(251, 146, 60, 0.15);
+    }
+    
+    .shape:nth-child(4) {
+      width: 60px;
+      height: 60px;
+      left: 30%;
+      top: 40%;
+      transform: rotate(30deg);
+      animation-duration: 40s;
+      border-color: rgba(245, 158, 11, 0.15);
+    }
+    
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: rotate(180deg) scale(1.1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 0.3;
+      }
+    }
+    
+    /* Engineering Grid Overlay */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+      animation: gridMove 30s linear infinite;
+    }
+    
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+    
+    /* Circuit Board Effect */
+    .circuit-board {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .circuit-line {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.2);
+      pointer-events: none;
+      animation: circuitPulse 10s ease-in-out infinite;
+    }
+    
+    .circuit-line:nth-child(1) {
+      width: 200px;
+      height: 1px;
+      left: 10%;
+      top: 20%;
+      animation-delay: 0s;
+    }
+    
+    .circuit-line:nth-child(2) {
+      width: 1px;
+      height: 150px;
+      left: 30%;
+      top: 10%;
+      animation-delay: 2s;
+    }
+    
+    .circuit-line:nth-child(3) {
+      width: 180px;
+      height: 1px;
+      left: 60%;
+      top: 40%;
+      animation-delay: 4s;
+    }
+    
+    .circuit-line:nth-child(4) {
+      width: 1px;
+      height: 120px;
+      left: 80%;
+      top: 30%;
+      animation-delay: 6s;
+    }
+    
+    @keyframes circuitPulse {
+      0%, 100% {
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.6;
+      }
+    }
+    .container {
+      width: 95vw;
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 50px;
+      font-weight: 900;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #a855f7, #4895ef, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6));
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)); }
+      50% { filter: drop-shadow(0 0 40px rgba(72, 149, 239, 0.8)); }
+    }
+    .circle-option {
+      width: 150px;
+      height: 150px;
+      background: rgba(10, 14, 39, 0.85);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #e0e7ff;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(168, 85, 247, 0.2);
+      padding: 15px;
+    }
+    
+    .circle-option::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #a855f7, #4895ef, #06b6d4, #f59e0b);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .circle-option:hover {
+      background: rgba(10, 14, 39, 0.95);
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4), 0 0 30px rgba(168, 85, 247, 0.3);
+      border-color: rgba(168, 85, 247, 0.6);
+    }
+    
+    .circle-option:hover::before {
+      opacity: 1;
+    }
+    
+    .circle-option.active {
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.5);
+      border-color: rgba(168, 85, 247, 0.8);
+    }
+    .center-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px 0 20px 0;
+      gap: 50px;
+    }
+    @media (max-width: 800px) {
+      .center-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    .nested-container {
+      margin-top: 30px;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .nested-container.active {
+      display: flex;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .details {
+      margin-top: 40px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(120, 119, 198, 0.3);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      display: none;
+      color: #cbd5e1;
+      user-select: text;
+      text-align: left;
+      font-weight: 500;
+    }
+    
+    .details h2 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 900;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.4));
+    }
+    .details ul {
+      padding-left: 20px;
+    }
+    .details li {
+      margin-bottom: 10px;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 32px;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 70px;
+      min-height: 0;
+    }
+    .logo-container {
+      flex: 0 0 80px;
+      padding: 0;
+    }
+    .logo {
+      height: 45px;
+      width: auto;
+      max-width: none;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+    nav {
+      flex: 1;
+      text-align: center;
+    }
+    nav a {
+      color: #e0e7ff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #4895ef);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::before {
+      width: 80%;
+    }
+    
+    nav a:hover {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    #userName {
+      margin-left: 20px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+    }
+    .login-btn {
+      background-color: #2575fc;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    .login-btn:hover {
+      background-color: #6a11cb;
+    }
+    
+    /* Engineering Sub-Level Styles */
+    .engineering-sub {
+      margin-top: 30px;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .engineering-sub.active {
+      display: flex;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    
+    .sub-circle {
+      width: 120px;
+      height: 120px;
+      background: rgba(10, 14, 39, 0.85); /* Darker: 0.7 → 0.85 */
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      border-radius: 50%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.2);
+      user-select: none;
+      color: #e0e7ff;
+      padding: 12px;
+    }
+    
+    .sub-circle::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .sub-circle:hover {
+      background: rgba(10, 14, 39, 0.95); /* Darker: 0.9 → 0.95 */
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 15px 35px rgba(168, 85, 247, 0.4), 0 0 25px rgba(168, 85, 247, 0.3);
+      border-color: rgba(168, 85, 247, 0.6);
+    }
+    
+    .sub-circle:hover::before {
+      opacity: 1;
+    }
+    
+    .sub-circle.active {
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      color: #fff;
+      box-shadow: 0 20px 45px rgba(168, 85, 247, 0.6), 0 0 35px rgba(168, 85, 247, 0.5);
+      transform: scale(1.15);
+      border-color: transparent;
+    }
+    
+    /* Exam Cards */
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .exam-card {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(72, 149, 239, 0.4);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(72, 149, 239, 0.2);
+    }
+    
+    .exam-card:hover {
+      background: rgba(10, 14, 39, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(72, 149, 239, 0.5);
+      border-color: rgba(72, 149, 239, 0.6);
+    }
+    
+    .exam-name {
+      font-weight: 800;
+      color: #60a5fa;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .exam-details {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+    
+    /* Specialization Cards */
+    .specialization-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .spec-card {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.2);
+    }
+    
+    .spec-card strong {
+      color: #60a5fa;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .spec-card em {
+      color: #06b6d4;
+      font-size: 0.9rem;
+      display: block;
+      margin-top: 8px;
+    }
+    
+    .spec-card:hover {
+      background: rgba(10, 14, 39, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(168, 85, 247, 0.5);
+      border-color: rgba(168, 85, 247, 0.6);
+    }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+      margin: 30px 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, #a855f7, #4895ef, #06b6d4);
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 35px;
+      padding-left: 50px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 8px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+      border: 3px solid rgba(10, 14, 39, 0.8);
+    }
+    
+    .timeline-item h4 {
+      color: #60a5fa;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    
+    /* College Cards */
+    .college-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .college-card {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.2);
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .college-card:hover {
+      background: rgba(10, 14, 39, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(168, 85, 247, 0.5);
+      border-color: rgba(168, 85, 247, 0.6);
+    }
+    
+    .college-card h4 {
+      color: #a855f7;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    
+    /* Company Cards */
+    .company-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .company-card {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(72, 149, 239, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(72, 149, 239, 0.2);
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .company-card:hover {
+      background: rgba(10, 14, 39, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(72, 149, 239, 0.5);
+      border-color: rgba(72, 149, 239, 0.6);
+    }
+    
+    .company-card h4 {
+      color: #4895ef;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+    
+    /* Placement Stats */
+    .placement-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .stat-card {
+      background: rgba(10, 14, 39, 0.6);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(6, 182, 212, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      background: rgba(10, 14, 39, 0.8);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+    }
+    
+    .stat-card h4 {
+      color: #06b6d4;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+    
+    /* Clickable Cards */
+    .clickable-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .clickable-card::before {
+      content: '🔗';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .clickable-card:hover::before {
+      opacity: 0.7;
+    }
+    
+    .clickable-card:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
+  </style>
+</head>
+<body>
+  <!-- Engineering-Themed Dynamic Background System -->
+  <div class="grid-overlay"></div>
+  <div class="circuit-nodes" id="circuitNodes"></div>
+  <div class="engineering-icons" id="engineeringIcons"></div>
+  <div class="data-stream">010101 110010 101010 011010 110101 001101 101011 010110 110011 001101 010101 110010 101010 011010 110101 001101 101011 010110 110011 001101 010101 110010 101010 011010 110101 001101 101011 010110 110011 001101 010101 110010 101010 011010 110101 001101 101011 010110 110011 001101 010101 110010 101010 011010 110101 001101 101011 010110 110011 001101</div>
+  <div class="particles" id="particles"></div>
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <div class="starfield" id="starfield"></div>
+  <div class="circuit-board">
+    <div class="circuit-line"></div>
+    <div class="circuit-line"></div>
+    <div class="circuit-line"></div>
+    <div class="circuit-line"></div>
+  </div>
+  
+  <!-- Example header structure for balanced layout -->
+<header class="navbar">
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/form">Form</a>
+    <a href="/roadmap">Career Roadmap</a>
+  </nav>
+  <span id="userName" style="margin-left:16px; font-weight:600; font-size:1rem;"></span>
+</header>
+  <div class="container" style="padding-top: 80px;">
+    <h1>Combined Career Roadmap</h1>
+    <!-- Main Options Centered -->
+    <div class="center-row" id="level1">
+      <div class="circle-option" onclick="showNext('roadmap')">Roadmap Overview</div>
+      <div class="circle-option" onclick="showNext('career')">Career Paths</div>
+    </div>
+    <!-- Roadmap Overview -->
+    <div id="roadmap" class="nested-container">
+      <div class="circle-option" onclick="showDetails('highschool-details')">High School</div>
+      <div class="circle-option" onclick="showDetails('intermediate-details')">Intermediate</div>
+      <div class="circle-option" onclick="showEngineeringSub()">Engineering</div>
+      <div class="circle-option" onclick="showDetails('postgrad-details')">Post Graduate</div>
+    </div>
+    <!-- Career Paths -->
+    <div id="career" class="nested-container">
+      <div class="circle-option" onclick="showDetails('software-dev-details')">Software Development</div>
+      <div class="circle-option" onclick="showDetails('data-science-details')">Data Science</div>
+      <div class="circle-option" onclick="showDetails('management-details')">Management</div>
+      <div class="circle-option" onclick="showDetails('entrepreneurship-details')">Entrepreneurship</div>
+    </div>
+    
+    <!-- NEW: Engineering Sub-Level (Level 3) -->
+    <div id="engineering-sub" class="engineering-sub">
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('exams-details')">🎯 Entrance Exams</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('specializations-details')">📚 Specializations</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('timeline-details')">📅 4-Year Timeline</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('colleges-details')">🎓 Top Colleges</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('placements-details')">💼 Placements</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('prep-details')">🚀 Preparation</div>
+      <div class="circle-option sub-circle" onclick="showEngineeringDetails('nextsteps-details')">📈 Next Steps</div>
+    </div>
+    <!-- Details Sections -->
+    <div id="highschool-details" class="details">
+      <h2>High School (10th SSC)</h2>
+      <ul>
+        <li>Focus on matriculation exams, fundamentals.</li>
+        <li>Explore streams: Science, Commerce, Arts.</li>
+      </ul>
+    </div>
+    <div id="intermediate-details" class="details">
+      <h2>Intermediate (MPC, Biotech, Commerce)</h2>
+      <ul>
+        <li>MPC: Prepares for engineering entrances like JEE, EAMCET.</li>
+        <li>Biotech: Leads toward medical or life sciences.</li>
+        <li>Commerce: Business and finance fundamentals.</li>
+      </ul>
+    </div>
+    <div id="engineering-details" class="details">
+      <h2>Engineering (BTech)</h2>
+      <ul>
+        <li>Multiple specializations available.</li>
+        <li>Focus on projects, internships, certifications.</li>
+      </ul>
+    </div>
+    <div id="postgrad-details" class="details">
+      <h2>Post Graduate (MTech, MBA, MSc)</h2>
+      <ul>
+        <li>Advanced specialization and research.</li>
+        <li>Prepare for GATE, NET, other relevant exams.</li>
+      </ul>
+    </div>
+    <div id="software-dev-details" class="details">
+      <h2>Software Development Career</h2>
+      <ul>
+        <li>Learn programming, data structures, algorithms.</li>
+        <li>Gain experience in full-stack, DevOps, cloud.</li>
+      </ul>
+    </div>
+    <div id="data-science-details" class="details">
+      <h2>Data Science Career</h2>
+      <ul>
+        <li>Master statistics, machine learning, AI.</li>
+        <li>Work on real datasets and projects.</li>
+      </ul>
+    </div>
+    <div id="management-details" class="details">
+      <h2>Management Career</h2>
+      <ul>
+        <li>Develop leadership, team building skills.</li>
+        <li>Pursue MBA or equivalent to accelerate growth.</li>
+      </ul>
+    </div>
+    <div id="entrepreneurship-details" class="details">
+      <h2>Entrepreneurship Path</h2>
+      <ul>
+        <li>Build ideas into products and services.</li>
+        <li>Learn business planning, funding, marketing.</li>
+      </ul>
+    </div>
+    
+    <!-- NEW: Engineering Sub-Details Sections -->
+    <div id="exams-details" class="details">
+      <h2>🎯 Engineering Entrance Exams</h2>
+      <div class="exam-grid">
+        <div class="exam-card clickable-card" data-url="https://jeemain.nta.nic.in/">
+          <div class="exam-name">JEE Main</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> NTA<br>
+            <strong>Pattern:</strong> MCQ + Numerical (PCM)<br>
+            <strong>Frequency:</strong> 2 times/year (Jan/Apr)<br>
+            <strong>Target:</strong> 250+ for NITs, 300+ for top IIITs
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://jeeadv.ac.in/">
+          <div class="exam-name">JEE Advanced</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> IITs (rotating)<br>
+            <strong>Pattern:</strong> MCQ + Numerical (PCM)<br>
+            <strong>Frequency:</strong> Once/year (May)<br>
+            <strong>Target:</strong> 150+ for IITs (CRL < 3000)
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://eapcet.tsche.ac.in/">
+          <div class="exam-name">TS EAMCET</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> TSCHE<br>
+            <strong>Pattern:</strong> MCQ (PCM)<br>
+            <strong>Frequency:</strong> Once/year (May)<br>
+            <strong>Target:</strong> 100+ for JNTU-H
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://cets.apsche.ap.gov.in/">
+          <div class="exam-name">AP EAMCET</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> APSCHE<br>
+            <strong>Pattern:</strong> MCQ (PCM)<br>
+            <strong>Frequency:</strong> Once/year (May)<br>
+            <strong>Target:</strong> 120+ for top colleges
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://bitsadmission.com/">
+          <div class="exam-name">BITSAT</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> BITS Pilani<br>
+            <strong>Pattern:</strong> MCQ (PCM + English)<br>
+            <strong>Frequency:</strong> May-June<br>
+            <strong>Target:</strong> 300+ for BITS Pilani
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://www.srmist.edu.in/srmjeee/">
+          <div class="exam-name">SRMJEEE</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> SRM University<br>
+            <strong>Pattern:</strong> MCQ (PCM)<br>
+            <strong>Frequency:</strong> April-May<br>
+            <strong>Target:</strong> 200+ for SRM Chennai
+          </div>
+        </div>
+        <div class="exam-card clickable-card" data-url="https://www.vit.ac.in/admissions/viteee/">
+          <div class="exam-name">VITEEE</div>
+          <div class="exam-details">
+            <strong>Conducted by:</strong> VIT University<br>
+            <strong>Pattern:</strong> MCQ (PCM)<br>
+            <strong>Frequency:</strong> April-May<br>
+            <strong>Target:</strong> 60+ for VIT Vellore
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="specializations-details" class="details">
+      <h2>📚 Engineering Specializations</h2>
+      <div class="specialization-grid">
+        <div class="spec-card">
+          <strong>CSE/IT</strong><br>
+          Software Engineering, AI/ML, Cybersecurity<br>
+          <em>Top Choice - ₹7-45 LPA avg</em>
+        </div>
+        <div class="spec-card">
+          <strong>ECE</strong><br>
+          VLSI Design, Embedded Systems, 5G/IoT<br>
+          <em>High Demand - ₹5-25 LPA avg</em>
+        </div>
+        <div class="spec-card">
+          <strong>Mechanical</strong><br>
+          Automotive, Robotics, Manufacturing<br>
+          <em>Core Engineering - ₹4-15 LPA avg</em>
+        </div>
+        <div class="spec-card">
+          <strong>Civil</strong><br>
+          Construction, Infrastructure, Smart Cities<br>
+          <em>Stable Career - ₹4-12 LPA avg</em>
+        </div>
+        <div class="spec-card">
+          <strong>EEE</strong><br>
+          Power Systems, Renewable Energy, EV<br>
+          <em>Growing Sector - ₹5-18 LPA avg</em>
+        </div>
+      </div>
+    </div>
+
+    <div id="timeline-details" class="details">
+      <h2>📅 4-Year BTech Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Year 1: Foundation Building</h4>
+          <ul>
+            <li>C/C++, Engineering Maths, Physics, Engineering Drawing</li>
+            <li><strong>Target:</strong> 8.5+ CGPA</li>
+            <li>DSA basics (Arrays, Linked Lists)</li>
+            <li>College fests, tech clubs</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Year 2: Core Subjects</h4>
+          <ul>
+            <li>OOPS, DBMS, OS, Computer Networks</li>
+            <li>First internship (2 months summer)</li>
+            <li>2-3 projects on GitHub</li>
+            <li>Competitive programming</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Year 3: Specialization</h4>
+          <ul>
+            <li>Core branch subjects + Electives</li>
+            <li>Off-campus internships (Tier-2/3)</li>
+            <li>AWS/Azure certifications</li>
+            <li>Hackathons, open source</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <h4>Year 4: Placements</h4>
+          <ul>
+            <li>Campus placements (Tier-1/2/3)</li>
+            <li>Resume building, mock interviews</li>
+            <li>Off-campus (FAANG, startups)</li>
+            <li>Final year project</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="colleges-details" class="details">
+      <h2>🎓 Top Engineering Colleges</h2>
+      <h3>National Level</h3>
+      <div class="college-grid">
+        <div class="college-card clickable-card" data-url="https://www.iitb.ac.in/">
+          <h4>IIT Bombay</h4>
+          <p>JEE Advanced CRL < 1000</p>
+          <p>Premier engineering institute</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.iitd.ac.in/">
+          <h4>IIT Delhi</h4>
+          <p>JEE Advanced CRL < 1000</p>
+          <p>Top engineering college</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.iitm.ac.in/">
+          <h4>IIT Madras</h4>
+          <p>JEE Advanced CRL < 1000</p>
+          <p>Excellence in engineering</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.iitk.ac.in/">
+          <h4>IIT Kanpur</h4>
+          <p>JEE Advanced CRL < 1000</p>
+          <p>Research-focused institute</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.nitt.edu/">
+          <h4>NIT Trichy</h4>
+          <p>JEE Main Top 5K</p>
+          <p>Top NIT college</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.nitk.ac.in/">
+          <h4>NIT Surathkal</h4>
+          <p>JEE Main Top 5K</p>
+          <p>Premier NIT institute</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.nitw.ac.in/">
+          <h4>NIT Warangal</h4>
+          <p>JEE Main Top 5K</p>
+          <p>Excellent placements</p>
+        </div>
+      </div>
+      <h3>AP/TS State Colleges</h3>
+      <div class="college-grid">
+        <div class="college-card clickable-card" data-url="https://jntuk.edu.in/">
+          <h4>JNTU Kakinada</h4>
+          <p>AP EAMCET < 5K</p>
+          <p>Top AP engineering college</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://jntuh.ac.in/">
+          <h4>JNTU Hyderabad</h4>
+          <p>TS EAMCET < 3K</p>
+          <p>Premier TS institute</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.cbit.ac.in/">
+          <h4>CBIT</h4>
+          <p>TS EAMCET < 3K</p>
+          <p>Excellent placements</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.vnrjiet.ac.in/">
+          <h4>VNRVJIET</h4>
+          <p>TS EAMCET < 3K</p>
+          <p>Top private college</p>
+        </div>
+      </div>
+      <h3>Private Universities</h3>
+      <div class="college-grid">
+        <div class="college-card clickable-card" data-url="https://vit.ac.in/">
+          <h4>VIT Vellore</h4>
+          <p>VITEEE + JEE Main</p>
+          <p>Top private university</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://manipal.edu/">
+          <h4>Manipal University</h4>
+          <p>MUET + JEE Main</p>
+          <p>Premier private institute</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.amrita.edu/">
+          <h4>Amrita University</h4>
+          <p>AEEE + JEE Main</p>
+          <p>Excellent research</p>
+        </div>
+        <div class="college-card clickable-card" data-url="https://www.srmist.edu.in/">
+          <h4>SRM Chennai</h4>
+          <p>SRMJEEE + JEE Main</p>
+          <p>Top placements</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="placements-details" class="details">
+      <h2>💼 Engineering Placements (2024-25)</h2>
+      <div class="placement-stats">
+        <div class="stat-card">
+          <h4>CSE</h4>
+          <p>₹12-45 LPA (Tier-1)</p>
+          <p>₹6-18 LPA (Tier-2)</p>
+        </div>
+        <div class="stat-card">
+          <h4>ECE</h4>
+          <p>₹8-28 LPA (Tier-1)</p>
+          <p>₹5-15 LPA (Tier-2)</p>
+        </div>
+        <div class="stat-card">
+          <h4>Core Branches</h4>
+          <p>₹5-15 LPA</p>
+          <p>PSUs, Manufacturing</p>
+        </div>
+      </div>
+      <h3>Top Recruiters</h3>
+      <div class="company-grid">
+        <div class="company-card clickable-card" data-url="https://careers.google.com/">
+          <h4>Google</h4>
+          <p>₹45-60 LPA</p>
+          <p>Tech giant</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://careers.microsoft.com/">
+          <h4>Microsoft</h4>
+          <p>₹35-50 LPA</p>
+          <p>Software leader</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.amazon.jobs/en/">
+          <h4>Amazon</h4>
+          <p>₹30-45 LPA</p>
+          <p>E-commerce giant</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.goldmansachs.com/careers/">
+          <h4>Goldman Sachs</h4>
+          <p>₹40-55 LPA</p>
+          <p>Investment banking</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.servicenow.com/careers/">
+          <h4>ServiceNow</h4>
+          <p>₹25-40 LPA</p>
+          <p>Cloud platform</p>
+        </div>
+      </div>
+      <h3>Mass Recruiters</h3>
+      <div class="company-grid">
+        <div class="company-card clickable-card" data-url="https://www.tcs.com/careers">
+          <h4>TCS</h4>
+          <p>₹4-8 LPA</p>
+          <p>IT services</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.infosys.com/careers/">
+          <h4>Infosys</h4>
+          <p>₹4-8 LPA</p>
+          <p>IT consulting</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.wipro.com/careers/">
+          <h4>Wipro</h4>
+          <p>₹4-7 LPA</p>
+          <p>IT solutions</p>
+        </div>
+        <div class="company-card clickable-card" data-url="https://www.accenture.com/careers">
+          <h4>Accenture</h4>
+          <p>₹5-9 LPA</p>
+          <p>Consulting</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="prep-details" class="details">
+      <h2>🚀 Entrance Exam Preparation</h2>
+      <h3>Daily Schedule (11th-12th)</h3>
+      <ul>
+        <li><strong>6 AM-12 PM:</strong> School/Coaching (PCM focus)</li>
+        <li><strong>2 PM-8 PM:</strong> Self-study (PCM focus)</li>
+        <li><strong>8 PM-10 PM:</strong> Practice/Revision (Foundation books)</li>
+        <li><strong>10 PM-12 AM:</strong> Mock tests & problem solving</li>
+        <li><strong>Total:</strong> 10-12 hours daily</li>
+      </ul>
+      <h3>Resources</h3>
+      <ul>
+        <li><strong>Books:</strong> NCERT (Physics), Foundation Mathematics (Maths), Standard Textbooks</li>
+        <li><strong>Coaching:</strong> Reputed coaching centers, Online platforms</li>
+        <li><strong>Tests:</strong> Mock test series, Previous year papers</li>
+        <li><strong>Online:</strong> Educational websites, Video lectures, Practice platforms</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    // Hide all nested containers and details on load except level 1
+    document.querySelectorAll('.nested-container, .engineering-sub, .details').forEach(el => el.style.display = 'none');
+    document.getElementById('level1').style.display = 'flex';
+    
+    function showNext(id) {
+      // Hide all nested containers and details
+      document.querySelectorAll('.nested-container, .engineering-sub, .details').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+      });
+      // Show selected next level container
+      const container = document.getElementById(id);
+      if (container) {
+        container.style.display = 'flex';
+        container.classList.add('active');
+      }
+      // Activate clicked circle and deactivate others
+      document.querySelectorAll('.circle-option').forEach(circle => circle.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+    
+    // Engineering sub-level handler with enhanced animations
+    function showEngineeringSub() {
+      // Hide all other containers
+      document.querySelectorAll('.nested-container, .details').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+      });
+      
+      // Show engineering sub-level with animation
+      setTimeout(() => {
+        document.getElementById('engineering-sub').style.display = 'flex';
+        document.getElementById('engineering-sub').classList.add('active');
+        setTimeout(() => {
+          document.getElementById('engineering-sub').style.opacity = '1';
+          document.getElementById('engineering-sub').style.transform = 'translateY(0)';
+        }, 50);
+      }, 300);
+      
+      // Activate engineering button
+      document.querySelectorAll('.circle-option').forEach(circle => circle.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Engineering details handler with professional transitions
+    function showEngineeringDetails(id) {
+      // Hide all details ONLY (keep engineering sub visible)
+      document.querySelectorAll('.details').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+      });
+      
+      // Show selected detail section with animation
+      setTimeout(() => {
+        const detailDiv = document.getElementById(id);
+        if (detailDiv) {
+          detailDiv.style.display = 'block';
+          detailDiv.classList.add('active');
+          setTimeout(() => {
+            detailDiv.style.opacity = '1';
+            detailDiv.style.transform = 'translateY(0)';
+          }, 50);
+        }
+      }, 300);
+      
+      // Keep engineering sub-level visible
+      document.getElementById('engineering-sub').style.display = 'flex';
+      document.getElementById('engineering-sub').classList.add('active');
+      
+      // Activate clicked sub-circle and deactivate others
+      document.querySelectorAll('.circle-option, .sub-circle').forEach(circle => circle.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Updated showDetails for other sections with smooth transitions
+    function showDetails(id) {
+      // Hide all containers including engineering sub
+      document.querySelectorAll('.nested-container, .engineering-sub, .details').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+      });
+      
+      setTimeout(() => {
+        const detailDiv = document.getElementById(id);
+        if (detailDiv) {
+          detailDiv.style.display = 'block';
+          detailDiv.classList.add('active');
+          setTimeout(() => {
+            detailDiv.style.opacity = '1';
+            detailDiv.style.transform = 'translateY(0)';
+          }, 50);
+        }
+      }, 300);
+      
+      // Activate clicked circle and deactivate others
+      document.querySelectorAll('.circle-option, .sub-circle').forEach(circle => circle.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Add smooth transitions to all containers
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.nested-container, .engineering-sub, .details').forEach(el => {
+        el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      });
+      
+      // Initialize clickable cards
+      initClickableCards();
+      
+      // Enhanced Engineering Background Elements
+      initEnhancedParticles();
+      initCircuitNodes();
+      initEngineeringIcons();
+      
+      // Starfield System
+      initStarfield();
+      
+      // Circuit Board System
+      initCircuitBoard();
+    });
+
+    // Enhanced Particle Animation Script
+    function initEnhancedParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const engineeringColors = [
+        'rgba(59, 130, 246, 0.8)',  // Engineering blue
+        'rgba(16, 185, 129, 0.8)',   // Engineering green
+        'rgba(251, 146, 60, 0.8)',   // Engineering orange
+        'rgba(245, 158, 11, 0.8)',   // Engineering amber
+        'rgba(220, 38, 38, 0.8)'    // Engineering red
+      ];
+      
+      for(let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random color from engineering array
+        const colorIndex = Math.floor(Math.random() * engineeringColors.length);
+        particle.style.background = `radial-gradient(circle, ${engineeringColors[colorIndex]}, transparent)`;
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Random animation duration and delay
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Circuit Nodes Initialization
+    function initCircuitNodes() {
+      const container = document.getElementById('circuitNodes');
+      for (let i = 0; i < 18; i++) {
+        const node = document.createElement('div');
+        node.className = 'circuit-node';
+        node.style.left = Math.random() * 100 + '%';
+        node.style.top = Math.random() * 100 + '%';
+        node.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(node);
+      }
+    }
+
+    // Engineering Icons Initialization
+    function initEngineeringIcons() {
+      const icons = ['⚙️','⬡','⬢','📐','📊','🔧'];
+      const container = document.getElementById('engineeringIcons');
+
+      for (let i = 0; i < 12; i++) {
+        const el = document.createElement('div');
+        el.className = 'eng-icon';
+        el.textContent = icons[Math.floor(Math.random() * icons.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.top = Math.random() * 100 + '%';
+        el.style.animationDuration = 30 + Math.random() * 40 + 's';
+        container.appendChild(el);
+      }
+    }
+
+    // Starfield Animation Script
+    function initStarfield() {
+      const starfieldContainer = document.getElementById('starfield');
+      
+      for(let i = 0; i < 15; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random position
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        // Random animation delay
+        star.style.animationDelay = Math.random() * 5 + 's';
+        
+        starfieldContainer.appendChild(star);
+      }
+    }
+    
+    // Circuit Board Animation Script
+    function initCircuitBoard() {
+      const circuitBoard = document.querySelector('.circuit-board');
+      // Circuit lines are already in HTML, just need to ensure they're visible
+    }
+
+    // Fail-safe function for opening official websites
+    function openOfficial(url) {
+      try {
+        window.open(url, "_blank", "noopener,noreferrer");
+      } catch (e) {
+        alert("Official website is temporarily unavailable.");
+      }
+    }
+
+    // Initialize clickable cards functionality
+    function initClickableCards() {
+      document.querySelectorAll('.clickable-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          e.preventDefault();
+          const url = this.getAttribute('data-url');
+          if (url) {
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              this.style.transform = '';
+              openOfficial(url);
+            }, 150);
+          }
+        });
+        
+        // Add hover sound effect (visual feedback)
+        card.addEventListener('mouseenter', function() {
+          this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+      });
+    }
+
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        // Reset to main menu
+        document.querySelectorAll('.nested-container, .engineering-sub, .details').forEach(el => {
+          el.style.display = 'none';
+          el.classList.remove('active');
+        });
+        document.getElementById('level1').style.display = 'flex';
+        document.querySelectorAll('.circle-option, .sub-circle').forEach(circle => circle.classList.remove('active'));
+      }
+    });
+  </script>
+  
+  <!-- Clean AI Chatbot -->
+  <script src="/static/js/clean-chatbot.js"></script>
+</body>
+</html>
+    
+                          

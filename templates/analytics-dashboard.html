@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot Analytics Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-header h1 {
+            color: #3b82f6;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dashboard-header p {
+            color: #64748b;
+            font-size: 1.2em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: cardShine 3s infinite;
+        }
+        
+        @keyframes cardShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            animation: numberPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .analytics-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section-card {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .section-card h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .topics-list, .queries-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .topic-item, .query-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .topic-item:hover, .query-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+        
+        .topic-name, .query-text {
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .topic-count, .query-time {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1.2em;
+        }
+        
+        .demo-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .demo-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .analytics-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>📊 AI Chatbot Analytics Dashboard</h1>
+            <p>Real-time insights into user queries and popular topics</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-queries">0</div>
+                <div class="stat-label">Total Queries</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="active-users">0</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="avg-response">0s</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-number" id="satisfaction">98%</div>
+                <div class="stat-label">User Satisfaction</div>
+            </div>
+        </div>
+        
+        <div class="analytics-section">
+            <div class="section-card">
+                <h2>🔥 Popular Topics</h2>
+                <div class="topics-list" id="topics-list">
+                    <div class="topic-item">
+                        <span class="topic-name">College Rankings</span>
+                        <span class="topic-count">45</span>
+                    </div>
+                    <div class="topic-item">
+                        <span class="topic-name">Career Guidance</span>
+                        <span class="topic-count">32</span>
+                    </div>
+                    <div class="topic-item">
+                        <span class="topic-name">Exam Preparation</span>
+                        <span class="topic-count">28</span>
+                    </div>
+                    <div class="topic-item">
+                        <span class="topic-name">Branch Selection</span>
+                        <span class="topic-count">15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2>💬 Recent Queries</h2>
+                <div class="queries-list" id="queries-list">
+                    <div class="query-item">
+                        <span class="query-text">TS EAMCET rank 3500</span>
+                        <span class="query-time">2 min ago</span>
+                    </div>
+                    <div class="query-item">
+                        <span class="query-text">JEE Main preparation tips</span>
+                        <span class="query-time">5 min ago</span>
+                    </div>
+                    <div class="query-item">
+                        <span class="query-text">Computer engineering career</span>
+                        <span class="query-time">8 min ago</span>
+                    </div>
+                    <div class="query-item">
+                        <span class="query-text">Best colleges for CSE</span>
+                        <span class="query-time">12 min ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>📈 Query Trends Over Time</h2>
+            <div class="chart-placeholder">
+                📊 Interactive Chart Coming Soon
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>🎯 Topic Distribution</h2>
+            <div class="chart-placeholder">
+                🥧 Pie Chart Coming Soon
+            </div>
+        </div>
+        
+        <div class="demo-actions">
+            <button class="demo-btn" onclick="refreshAnalytics()">🔄 Refresh Analytics</button>
+            <button class="demo-btn" onclick="exportData()">📥 Export Data</button>
+            <button class="demo-btn" onclick="openChatbot()">💬 Test Chatbot</button>
+        </div>
+        
+        <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 10px; padding: 20px; margin-top: 30px;">
+            <h3 style="color: #92400e; margin-bottom: 10px;">🎯 Analytics Features</h3>
+            <ul style="line-height: 1.8; color: #92400e;">
+                <li><strong>📊 Real-time Tracking:</strong> Monitors user queries and interactions</li>
+                <li><strong>🔥 Topic Analysis:</strong> Identifies most popular discussion topics</li>
+                <li><strong>⏱️ Performance Metrics:</strong> Tracks response times and user satisfaction</li>
+                <li><strong>💾 Persistent Storage:</strong> Saves analytics data in localStorage</li>
+                <li><strong>📈 Trend Analysis:</strong> Shows usage patterns over time</li>
+                <li><strong>🎯 User Insights:</strong> Helps improve chatbot responses</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Load the Enhanced AI Chatbot -->
+    <script src="/static/js/enhanced-animated-chatbot.js"></script>
+    
+    <script>
+        // Initialize dashboard with sample data
+        function initializeDashboard() {
+            loadAnalyticsData();
+            startRealTimeUpdates();
+        }
+        
+        function loadAnalyticsData() {
+            // Load analytics from localStorage or use sample data
+            const analytics = localStorage.getItem('chatbotAnalytics');
+            
+            if (analytics) {
+                const data = JSON.parse(analytics);
+                updateDashboardStats(data);
+            } else {
+                // Use sample data for demo
+                updateDashboardStats({
+                    totalQueries: 120,
+                    responseTimes: [1200, 1500, 800, 2000, 1100],
+                    popularTopics: {
+                        'College Rankings': 45,
+                        'Career Guidance': 32,
+                        'Exam Preparation': 28,
+                        'Branch Selection': 15
+                    },
+                    queryHistory: [
+                        { query: 'TS EAMCET rank 3500', timestamp: Date.now() - 120000 },
+                        { query: 'JEE Main preparation tips', timestamp: Date.now() - 300000 },
+                        { query: 'Computer engineering career', timestamp: Date.now() - 480000 },
+                        { query: 'Best colleges for CSE', timestamp: Date.now() - 720000 }
+                    ]
+                });
+            }
+        }
+        
+        function updateDashboardStats(data) {
+            // Update total queries
+            document.getElementById('total-queries').textContent = data.totalQueries || 0;
+            
+            // Update active users (simulated)
+            document.getElementById('active-users').textContent = Math.floor(Math.random() * 10) + 5;
+            
+            // Update average response time
+            if (data.responseTimes && data.responseTimes.length > 0) {
+                const avgTime = Math.round(data.responseTimes.reduce((a, b) => a + b, 0) / data.responseTimes.length / 1000);
+                document.getElementById('avg-response').textContent = avgTime + 's';
+            }
+            
+            // Update popular topics
+            if (data.popularTopics) {
+                const topicsList = document.getElementById('topics-list');
+                topicsList.innerHTML = '';
+                
+                Object.entries(data.popularTopics)
+                    .sort((a, b) => b[1] - a[1])
+                    .forEach(([topic, count]) => {
+                        const topicItem = document.createElement('div');
+                        topicItem.className = 'topic-item';
+                        topicItem.innerHTML = `
+                            <span class="topic-name">${topic}</span>
+                            <span class="topic-count">${count}</span>
+                        `;
+                        topicsList.appendChild(topicItem);
+                    });
+            }
+            
+            // Update recent queries
+            if (data.queryHistory) {
+                const queriesList = document.getElementById('queries-list');
+                queriesList.innerHTML = '';
+                
+                data.queryHistory
+                    .slice(-4)
+                    .reverse()
+                    .forEach(query => {
+                        const queryItem = document.createElement('div');
+                        queryItem.className = 'query-item';
+                        const timeAgo = getTimeAgo(query.timestamp);
+                        queryItem.innerHTML = `
+                            <span class="query-text">${query.query}</span>
+                            <span class="query-time">${timeAgo}</span>
+                        `;
+                        queriesList.appendChild(queryItem);
+                    });
+            }
+        }
+        
+        function getTimeAgo(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / 60000);
+            
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes} min ago`;
+            
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            
+            const days = Math.floor(hours / 24);
+            return `${days} day${days > 1 ? 's' : ''} ago`;
+        }
+        
+        function startRealTimeUpdates() {
+            // Update active users every 30 seconds
+            setInterval(() => {
+                const activeUsers = Math.floor(Math.random() * 10) + 5;
+                document.getElementById('active-users').textContent = activeUsers;
+            }, 30000);
+            
+            // Refresh analytics every 60 seconds
+            setInterval(() => {
+                loadAnalyticsData();
+            }, 60000);
+        }
+        
+        function refreshAnalytics() {
+            loadAnalyticsData();
+            showNotification('Analytics refreshed successfully!');
+        }
+        
+        function exportData() {
+            const analytics = localStorage.getItem('chatbotAnalytics');
+            if (analytics) {
+                const data = JSON.parse(analytics);
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `chatbot-analytics-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                showNotification('Analytics data exported successfully!');
+            } else {
+                showNotification('No analytics data available to export!');
+            }
+        }
+        
+        function openChatbot() {
+            if (window.enhancedChatbot) {
+                window.enhancedChatbot.openChat();
+            }
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add slide animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+    </script>
+</body>
+</html>

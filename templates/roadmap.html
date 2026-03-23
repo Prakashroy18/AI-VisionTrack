@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Roadmap</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Rajdhani', sans-serif;
+      background: #0a0e27;
+      color: #fff;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(72, 149, 239, 0.3), transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(168, 85, 247, 0.2), transparent 40%);
+      animation: gradientShift 15s ease infinite;
+      z-index: 0;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 90%, rgba(6, 182, 212, 0.15), transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(168, 85, 247, 0.15), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(72, 149, 239, 0.1), transparent 60%);
+      animation: gradientPulse 20s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    /* Professional Aurora Effect */
+    body::before {
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(72, 149, 239, 0.3), transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(168, 85, 247, 0.2), transparent 40%),
+        linear-gradient(45deg, transparent, rgba(168, 85, 247, 0.1), transparent),
+        linear-gradient(135deg, transparent, rgba(72, 149, 239, 0.1), transparent);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { 
+        opacity: 1; 
+        transform: scale(1) rotate(0deg); 
+      }
+      25% { 
+        opacity: 0.8; 
+        transform: scale(1.05) rotate(90deg); 
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(1.02) rotate(180deg); 
+      }
+      75% { 
+        opacity: 0.7; 
+        transform: scale(1.03) rotate(270deg); 
+      }
+    }
+    
+    @keyframes gradientPulse {
+      0%, 100% { 
+        opacity: 0.6; 
+        transform: scale(1) rotate(0deg); 
+      }
+      33% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotate(120deg); 
+      }
+      66% { 
+        opacity: 0.4; 
+        transform: scale(0.95) rotate(240deg); 
+      }
+    }
+    
+    /* Professional Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.8), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 20s infinite linear;
+    }
+    
+    .particle:nth-child(odd) {
+      background: radial-gradient(circle, rgba(72, 149, 239, 0.8), transparent);
+      animation-duration: 25s;
+    }
+    
+    .particle:nth-child(3n) {
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.8), transparent);
+      animation-duration: 22s;
+    }
+    
+    .particle:nth-child(5n) {
+      background: radial-gradient(circle, rgba(120, 119, 198, 0.8), transparent);
+      animation-duration: 28s;
+    }
+    
+    .particle:nth-child(7n) {
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent);
+      animation-duration: 30s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px) translateX(0px) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(50px) scale(0.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Floating Geometric Shapes */
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      pointer-events: none;
+      animation: rotate 60s infinite linear;
+    }
+    
+    .shape:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      left: 5%;
+      top: 10%;
+      border-radius: 50%;
+      animation-duration: 45s;
+      border-color: rgba(168, 85, 247, 0.2);
+    }
+    
+    .shape:nth-child(2) {
+      width: 80px;
+      height: 80px;
+      left: 85%;
+      top: 20%;
+      transform: rotate(45deg);
+      animation-duration: 55s;
+      border-color: rgba(72, 149, 239, 0.2);
+    }
+    
+    .shape:nth-child(3) {
+      width: 120px;
+      height: 120px;
+      left: 60%;
+      top: 70%;
+      border-radius: 30%;
+      animation-duration: 50s;
+      border-color: rgba(6, 182, 212, 0.15);
+    }
+    
+    .shape:nth-child(4) {
+      width: 60px;
+      height: 60px;
+      left: 30%;
+      top: 40%;
+      transform: rotate(30deg);
+      animation-duration: 40s;
+      border-color: rgba(120, 119, 198, 0.15);
+    }
+    
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: rotate(180deg) scale(1.1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 0.3;
+      }
+    }
+    
+    /* Professional Grid Overlay */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+      animation: gridMove 30s linear infinite;
+    }
+    
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+    
+    /* Starfield Effect */
+    .starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .star {
+      position: absolute;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: twinkle 5s ease-in-out infinite;
+    }
+    
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+      }
+    }
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #a855f7, #4895ef, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6));
+      animation: titleGlow 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    
+    @keyframes titleGlow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)); }
+      50% { filter: drop-shadow(0 0 40px rgba(72, 149, 239, 0.8)); }
+    }
+    .career-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      justify-content: center;
+      align-items: center;
+      margin: 80px auto 100px auto;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+    .career-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      border-radius: 100%;
+      font-size: 3.5rem;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(120, 119, 198, 0.3);
+      margin: auto;
+      margin-bottom: 15px;
+      border: 3px solid rgba(120, 119, 198, 0.4);
+      color: #fff;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .career-circle::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 100%;
+      padding: 3px;
+      background: linear-gradient(135deg, #a855f7, #4895ef);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .career-circle:hover::before {
+      opacity: 1;
+    }
+    
+    .career-circle:hover {
+      transform: scale(1.1) translateY(-10px);
+      border-color: rgba(168, 85, 247, 0.6);
+      box-shadow: 0 20px 60px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.4);
+    }
+    .eng { 
+      background: linear-gradient(135deg, rgba(99, 147, 247, 0.3), rgba(99, 147, 247, 0.1));
+    }
+    .eng:hover {
+      background: linear-gradient(135deg, #6393f7, #4e7dd9);
+    }
+    
+    .doc { 
+      background: linear-gradient(135deg, rgba(82, 201, 130, 0.3), rgba(82, 201, 130, 0.1));
+    }
+    .doc:hover {
+      background: linear-gradient(135deg, #52c982, #3fb36e);
+    }
+    
+    .ca { 
+      background: linear-gradient(135deg, rgba(255, 174, 55, 0.3), rgba(255, 174, 55, 0.1));
+    }
+    .ca:hover {
+      background: linear-gradient(135deg, #ffae37, #f59e1f);
+    }
+    
+    .grp { 
+      background: linear-gradient(135deg, rgba(160, 101, 234, 0.3), rgba(160, 101, 234, 0.1));
+    }
+    .grp:hover {
+      background: linear-gradient(135deg, #a065ea, #8847d6);
+    }
+    .career-title {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-align: center;
+      letter-spacing: 1px;
+      color: #e0e7ff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    @media (max-width: 700px) {
+      .career-grid { grid-template-columns: 1fr; gap: 2rem;}
+    }
+    .navbar {
+      padding: 0 32px;
+      height: 70px;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 15;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      flex: none;
+    }
+    
+    .logo {
+      height: 45px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(120, 119, 198, 0.6));
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+    nav {
+      flex: 1;
+      text-align: center;
+    }
+    nav a {
+      color: #e0e7ff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #a855f7, #4895ef);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::before {
+      width: 80%;
+    }
+    
+    nav a:hover {
+      background: rgba(168, 85, 247, 0.2);
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    #userName {
+      margin-left: 20px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #cbd5e1;
+    }
+    .login-btn {
+      padding: 6px 14px;
+      font-size: 0.98rem;
+      margin-left: 10px;
+      border-radius: 6px;
+      background-color: #ffd700;
+      color: #1f4287;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .login-btn:hover {
+      background-color: #ffc107;
+    }
+  </style>
+</head>
+<body>
+  <!-- Professional Dynamic Background System -->
+  <div class="particles" id="particles"></div>
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <div class="starfield" id="starfield"></div>
+  
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/form">Form</a>
+      <a href="/roadmap">Career Roadmap</a>
+    </nav>
+    <span id="userName" style="margin-left:20px; font-weight:700;"></span>
+  </header>
+  <h2>Choose Your Career Roadmap</h2>
+  <div class="career-grid">
+    <div class="career-circle eng" onclick="window.location='/roadmap-carrer?career=engineering'">⚙️ <span class="career-title">Engineering</span></div>
+<div class="career-circle doc" onclick="window.location='/roadmap-doctor'">🩺 <span class="career-title">Doctor</span></div>
+    <div class="career-circle ca" onclick="window.location='/roadmap-carrer?career=ca'">📊 <span class="career-title">CA</span></div>
+    <div class="career-circle grp" onclick="window.location='/roadmap-carrer?career=group1'">🏛️ <span class="career-title">Group 1</span></div>
+  </div>
+  
+  <!-- Professional Particle System -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      initProfessionalParticles();
+      initStarfield();
+    });
+
+    function initProfessionalParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const professionalColors = [
+        'rgba(168, 85, 247, 0.8)',  // Purple
+        'rgba(72, 149, 239, 0.8)',   // Blue
+        'rgba(6, 182, 212, 0.8)',   // Cyan
+        'rgba(120, 119, 198, 0.8)',  // Indigo
+        'rgba(255, 255, 255, 0.6)'   // White
+      ];
+      
+      for(let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random color from professional array
+        const colorIndex = Math.floor(Math.random() * professionalColors.length);
+        particle.style.background = `radial-gradient(circle, ${professionalColors[colorIndex]}, transparent)`;
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Random animation duration and delay
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    function initStarfield() {
+      const starfieldContainer = document.getElementById('starfield');
+      
+      for(let i = 0; i < 15; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        
+        // Random position
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        
+        // Random animation delay
+        star.style.animationDelay = Math.random() * 5 + 's';
+        
+        starfieldContainer.appendChild(star);
+      }
+    }
+  </script>
+  
+  <!-- Clean AI Chatbot -->
+  <script src="/static/js/clean-chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Google Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-btn { 
+            background: #4285f4; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px 0; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Login Test</h1>
+    <p>Click the button below to test Google Sign-In functionality:</p>
+    
+    <button class="test-btn" onclick="testGoogleLogin()">Test Google Sign-In</button>
+    
+    <div id="result" style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcWsY1mzvghwApo76syt1XWc9jjLTEtnM",
+            authDomain: "ai-career-counselor-e64b8.firebaseapp.com",
+            projectId: "ai-career-counselor-e64b8",
+            storageBucket: "ai-career-counselor-e64b8.appspot.com",
+            messagingSenderId: "339133928751",
+            appId: "1:339133928751:web:7ad0d40eadcaebb7b23dda"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function testGoogleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    document.getElementById('result').innerHTML = 
+                        '<h3 style="color: green;">✅ Google Sign-In Working!</h3>' +
+                        '<p>User: ' + (result.user.displayName || result.user.email) + '</p>' +
+                        '<p>UID: ' + result.user.uid + '</p>';
+                })
+                .catch((error) => {
+                    document.getElementById('result').innerHTML = 
+                        '<h3 style="color: red;">❌ Google Sign-In Failed</h3>' +
+                        '<p>Error: ' + error.message + '</p>';
+                });
+        }
+    </script>
+</body>
+</html>
